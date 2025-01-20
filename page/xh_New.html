@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../css/public.css" media="all">
+</head>
+<style>
+    #CCS1 div {
+        margin-bottom: 10px;
+    }
+    
+    #power option {
+        color: #000;
+    }
+</style>
+
+<body>
+    <div class="layuimini-container">
+        <div class="layuimini-main">
+
+            <fieldset class="table-search-fieldset">
+                <legend>搜索信息</legend>
+                <div style="margin: 10px 10px 10px 10px">
+                    <form class="layui-form layui-form-pane" action="">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <button type="submit" class="layui-btn layui-btn-primary" lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </fieldset>
+
+            <script type="text/html" id="toolbarDemo">
+                <div class="layui-btn-container">
+                    <button class="layui-btn layui-btn-sm data-add-btn"> 添加型号 </button>
+                </div>
+            </script>
+
+            <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+            <script type="text/html" id="currentTableBar">
+                <a class="layui-btn layui-btn-sm " lay-event="edit">编辑</a>
+                <a class="layui-btn layui-btn-sm layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+            </script>
+
+        </div>
+
+        <div id="PZM" class="layui-form layuimini-form" style="padding: 22px; line-height: 22px; background-color: #393D49; color: rgb(105 190 198); font-weight: 300;display: none;">
+            <div id="CCS1" class="layui-form-item">
+                <!-- { "userID": "1005","username": "张大强","password": "77777","power": "2"} -->
+                <label class="layui-form-label required" style="text-align: right;">型号：</label>
+                <div class="layui-input-block">
+                    <input id="Type" type="text" name="Type" lay-verify="required" lay-reqtext="输入型号" placeholder="请输入型号" class="layui-input">
+                </div>
+                <label class="layui-form-label required" style="text-align: right;">容量：</label>
+                <div class="layui-input-block">
+                    <input id="Capacity" type="text" name="Capacity" lay-verify="required" lay-reqtext="输入型号容量" placeholder="请输入型号容量" class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div id="PZM1" class="layui-form layuimini-form" style="padding: 22px; line-height: 22px; background-color: #393D49; color: rgb(105 190 198); font-weight: 300;display: none;">
+            <div id="CCS1" class="layui-form-item">
+                <!-- { "userID": "1005","username": "张大强","password": "77777","power": "2"} -->
+                <label class="layui-form-label required" readonly="readonly" style="text-align: right;">型号：</label>
+                <div class="layui-input-block">
+                    <input id="Type1" type="text" name="Type" lay-verify="required" lay-reqtext="输入型号" placeholder="请输入型号" class="layui-input">
+                </div>
+                <label class="layui-form-label required" style="text-align: right;">容量：</label>
+                <div class="layui-input-block">
+                    <input id="Capacity1" type="text" name="Capacity" lay-verify="required" lay-reqtext="输入型号容量" placeholder="请输入型号容量" class="layui-input">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="../http.js"></script>
+    <script>
+        layui.use(['form', 'table'], function() {
+            var $ = layui.jquery,
+                form = layui.form,
+                table = layui.table,
+                layuimini = layui.layuimini;
+
+            table.render({
+                elem: '#currentTableId',
+                toolbar: '#toolbarDemo',
+                method: "get",
+                url: http1,
+                // url: '../api/table.json',
+                // limits: [10, 15, 20, 25, 50, 100],
+                // limit: 10,
+                // page: true,
+                where: {
+                    "interface": "Model_Information",
+                    "operate": "SearchType",
+                    "Type": "",
+                    // "Pages": $(".layui-laypage-em").next().html(),
+                    // "Limit": $(".layui-laypage-limits").find("option:selected").val(),
+                    // "username": "",
+                    // "power": ""
+                },
+                done: function(obj, first) {
+                    //切换分页时候回调事件
+                    console.log(obj);
+                    console.log(first);
+                    if (first != 1) {
+                        //第一次进入不调用
+                    }
+                },
+                parseData: function(res) { //res 即为原始返回的数据
+                    console.log(parseInt(res.length))
+                    console.log(res.length)
+                    return {
+                        "code": 0,
+                        "msg": "",
+                        "count": res.length,
+                        "data": res //解析数据列表
+                    };
+                },
+                defaultToolbar: ['filter', 'exports', 'print', {
+                    title: '提示',
+                    layEvent: 'LAYTABLE_TIPS',
+                    icon: 'layui-icon-tips'
+                }],
+
+                cols: [
+
+                    // {"Type":"F00RJ02235\r\n","Number":"4","LineTotal":null,
+                    // "in_time":"2021/9/12 10:00:00","last_time":"2021/9/12 10:00:00",
+                    // "Station":"OP10","LineName":"A1","Quanity":"400"}
+                    [{
+                        field: 'Type',
+                        width: 180,
+                        title: '型号',
+                        sort: true
+                    }, {
+                        field: 'Box_Capacity',
+                        width: 180,
+                        title: '盒容量',
+                        sort: true
+                    }, {
+                        title: '操作',
+                        minWidth: 120,
+                        templet: '#currentTableBar',
+                        fixed: "right",
+                        align: "center"
+                    }]
+                ],
+
+            });
+
+            // 监听搜索操作
+            form.on('submit(data-search-btn)', function(data) {
+                var result = JSON.stringify(data.field);
+                // layer.alert(result, {
+                //     title: '最终的搜索信息'
+                // });
+
+                //执行搜索重载
+                table.reload('currentTableId', {
+                    page: {
+                        curr: 1
+                    },
+                    where: {
+                        // "Pages": $(".layui-laypage-em").next().html(),
+                        // "Limit": $(".layui-laypage-limits").find("option:selected").val(),
+                        "interface": "Model_Information",
+                        "operate": "SearchType",
+                        "Type": "",
+                        // "userID": data.field.userID,
+                        // "username": data.field.username,
+                        // "power": data.field.power
+                    }
+                }, 'data');
+
+                return false;
+            });
+
+
+
+            // 监听添加操作
+
+            $('body').on('click', '.data-add-btn', function() {
+
+                var index = layer.open({
+                    type: 1,
+                    title: "添加型号" //不显示标题栏
+                        ,
+                    closeBtn: false,
+                    area: '500px;',
+                    shade: 0.8,
+                    id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                        ,
+                    btn: ['确定', '取消'],
+                    btnAlign: 'c',
+                    moveType: 1 //拖拽模式，0或者1
+                        ,
+                    content: $("#PZM"),
+                    success: function(layero) {},
+                    yes: function(layero, index) {
+
+
+                        let data1 = {
+                            // interface=Model_Information&operate=New&Type=F00RJ02255&State=1
+                            "interface": "Model_Information",
+                            "operate": "New",
+                            "Type": $("#Type").val(),
+                            "Capacity": $("#Capacity").val()
+                        }
+
+
+
+                        if ($("#Type").val().length !== 10) {
+                            layer.open({
+                                type: 1,
+                                title: "错误提示",
+                                id: 'layerDemo' //防止重复弹出
+                                    ,
+                                content: '<p style="padding:5px;text-align:center">型号格式必须为10位数！</p>',
+                                btn: '关闭',
+                                area: '400px;',
+                                btnAlign: 'c' //按钮居中
+                                    ,
+                                shade: 0.5 //不显示遮罩
+                                    // , yes: function () {
+                                    // var index = layer.open();
+                                    // layer.close(layer.index);
+                                    // }
+                            });
+                        } else {
+                            $.ajax({
+
+                                url: http1,
+
+                                type: "get",
+
+                                // dataType: 'json',
+
+                                data: data1,
+
+                                success: function(data) {
+
+                                    // alert("提交成功：" + data)
+                                    layer.closeAll()
+                                    table.reload('currentTableId', {
+                                        page: {
+                                            curr: 1
+                                        },
+                                        where: {
+                                            "interface": "Model_Information",
+                                            "operate": "SearchType",
+                                            "Type": "",
+                                        }
+                                    }, 'data');
+                                },
+
+                                error: function() {
+
+                                    alert("服务器连接失败！")
+
+                                }
+
+                            })
+                        }
+                    }
+                });
+
+                $(window).on("resize", function() {
+                    layer.full(index);
+                });
+
+                return false;
+            });
+
+
+            table.on('tool(currentTableFilter)', function(obj) {
+                var data = obj.data;
+                if (obj.event === 'edit') {
+
+                    console.log("ce")
+                    var index = layer.open({
+                        type: 1,
+                        title: "编辑型号容量" //不显示标题栏
+                            ,
+                        closeBtn: false,
+                        area: '500px;',
+                        shade: 0.8,
+                        id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                            ,
+                        btn: ['确定', '取消'],
+                        btnAlign: 'c',
+                        moveType: 1 //拖拽模式，0或者1
+                            ,
+                        content: $("#PZM1"),
+                        success: function(layero) {
+                            $("#Type1").val(data.Type)
+                            $("#Capacity1").val(data.Box_Capacity)
+                        },
+                        yes: function(layero, index) {
+
+
+                            let data1 = {
+                                // interface=Model_Information&operate=New&Type=F00RJ02255&State=1
+                                "interface": "Model_Information",
+                                "operate": "Update",
+                                "Type": $("#Type1").val(),
+                                "Capacity": $("#Capacity1").val()
+                            }
+
+
+
+                            $.ajax({
+
+                                url: http1,
+
+                                type: "get",
+
+                                // dataType: 'json',
+
+                                data: data1,
+
+                                success: function(data) {
+
+                                    // alert("提交成功：" + data)
+                                    layer.closeAll()
+                                    table.reload('currentTableId', {
+                                        page: {
+                                            curr: 1
+                                        },
+                                        where: {
+                                            "interface": "Model_Information",
+                                            "operate": "SearchType",
+                                            "Type": "",
+                                        }
+                                    }, 'data');
+                                },
+
+                                error: function() {
+
+                                    alert("服务器连接失败！")
+
+                                }
+
+                            })
+
+                        }
+                    });
+
+                    $(window).on("resize", function() {
+                        layer.full(index);
+                    });
+
+                    return false;
+
+
+                } else if (obj.event === 'delete') {
+
+                    layer.confirm('确认删除' + data.Type + '型号嘛?', function(index) {
+
+                        console.log(data.userID)
+                        console.log(index)
+                        let data1 = {
+                            // interface=Model_Information&operate=Delete&Type=F00RJ02256
+                            "interface": "Model_Information",
+                            "operate": "Delete",
+                            "Type": data.Type
+                        }
+                        $.ajax({
+                            url: http1,
+                            type: "get",
+                            dataType: 'json',
+                            data: data1,
+                            success: function(data) {
+                                obj.del();
+                                layer.close(index);
+                            },
+                            error: function() {
+                                alert("提交失败")
+                            }
+                        })
+                    });
+
+
+
+                }
+            });
+
+        });
+    </script>
+    <script>
+    </script>
+
+</body>
+
+</html>

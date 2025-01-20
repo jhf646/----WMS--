@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>首页三</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
+    <link rel="stylesheet" href="../css/public.css" media="all">
+    <style>
+        .top-panel {
+            border: 1px solid #eceff9;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .top-panel>.layui-card-body {
+            height: 60px;
+        }
+
+        .top-panel-number {
+            line-height: 60px;
+            font-size: 30px;
+            border-right: 1px solid #eceff9;
+        }
+
+        .top-panel-tips {
+            line-height: 30px;
+            font-size: 12px
+        }
+    </style>
+</head>
+
+<body>
+    <!--<div class="layuimini-container">-->
+    <div class="layuimini-main">
+
+
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-xs12 layui-col-md12">
+                <div id="echarts-records_A" style="background-color:#ffffff;min-height:380px;padding: 10px"></div>
+            </div>
+            <div class="layui-col-xs12 layui-col-md12">
+                <div id="echarts-records_B" style="background-color:#ffffff;min-height:380px;padding: 10px"></div>
+            </div>
+        </div>
+
+    </div>
+    <!--</div>-->
+    <script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="../js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+    <script>
+        layui.use(['layer', 'echarts'], function () {
+            var $ = layui.jquery,
+                layer = layui.layer,
+                echarts = layui.echarts;
+
+            /**
+             * 报表功能
+             */
+
+            var myChart_A = echarts.init(document.getElementById('echarts-records_A'));
+            var myChart_B = echarts.init(document.getElementById('echarts-records_B'));
+
+
+
+            var hours1 = [];
+            var hours2 = [];
+            for (var i = 1; i < 20; i++) {
+                hours1.push(i);
+            }
+            for (var i = 1; i < 20; i++) {
+                hours2.push(i);
+            }
+
+            var days = ['1', '2', '3', '4'];
+
+            var data1 = [];
+
+            var data2 = [];
+
+            for (var z = 0; z < hours1.length; z++) {
+                for (var i = 0; i < days.length; i++) {
+                    data1.push([i, z, 1 + Math.round(Math.random() * 3)]);
+                }
+            }
+
+            for (var z = 0; z < hours2.length; z++) {
+                for (var i = 0; i < days.length; i++) {
+                    data2.push([i, z, 1 + Math.round(Math.random() * 3)]);
+                }
+            }
+
+            data1 = data1.map(function (item) {
+                return [item[1], item[0], item[2] || '-'];
+            });
+            data2 = data2.map(function (item) {
+                return [item[1], item[0], item[2] || '-'];
+            });
+
+            var option_A = {
+                title: {
+                    text: '4x19-A面'
+                },
+                dataZoom: [
+                    {
+                        id: 'dataZoomY',
+                        type: 'slider',
+                        yAxisIndex: [0],
+                        startValue: 0,
+                        endValue: 10,
+                        filterMode: 'empty'
+                    },
+                    {
+                        id: 'dataZoomX',
+                        type: 'slider',
+                        xAxisIndex: [0],
+                        startValue: 0,
+                        endValue: 25,
+                        filterMode: 'empty'
+                    }
+                ],
+
+                tooltip: {
+                    position: 'top',
+                    formatter: function (params) {
+                        console.log(params)
+                        return '坐标：' + days[params.value[1]] + ',' + hours1[params.data[0]] + '<br/>' + '盒数：' + params.data[2];
+                    }
+                },
+                animation: false,
+                grid: {
+                    left: '3%',
+                    right: '8%',
+                    bottom: '8%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    data: hours1,
+                    axisLine: {
+                        lineStyle: {
+                            color: '#000'
+                        }
+                    },
+                    // axisLabel: {
+                    //     interval: 0,
+                    //     rotate: 40
+
+                    // },
+                    splitArea: {
+                        show: true
+                    },
+                    name: '列'
+                },
+                yAxis: {
+                    type: 'category',
+                    data: days,
+                    axisLine: {
+                        lineStyle: {
+                            color: '#000'
+                        }
+                    },
+                    // axisLabel: {
+                    //     interval: 0,
+                    //     rotate: 40
+                    // },
+                    splitArea: {
+                        show: true
+                    },
+                    name: ''
+                },
+                visualMap: {
+                    calculable: false,
+                    // calculable: true,
+                    type: 'piecewise',
+                    categories: ["1", "2", "3", "4"],
+                    inRange: {
+                        color:
+                        {
+                            '1': '#f0f0f0',
+                            '2': 'green',
+                            '3': '#FFA500',
+                            '4': 'red'
+                        },
+                    },
+                    orient: 'horizontal',
+                    left: '60%',
+                    bottom: '92%',
+
+                    formatter: function (value) {  //标签的格式化工具。  // 范围标签显示内容。
+                        // var value = 1 + Math.round(Math.random() * 2)
+
+                        if (value == 1) {
+                            return '空闲库位'
+                        } else if (value == 2) {
+                            return '正常库位'
+                        } else if (value == 4) {
+                            return '超期库位'
+                        } else if (value == 3) {
+                            return '预警库位'
+                        }
+                    },
+                    textStyle: {
+                        color: "#000"
+                    }
+                },
+
+                series: [{
+
+                    name: 'Punch Card',
+                    type: 'heatmap',
+                    data: data1,
+                    label: {
+                        normal: {
+                            show: true
+                        }
+                    },
+
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowColor: 'rgba(120, 0, 0, 0.5)'
+                        }
+                    }
+
+                }],
+                itemStyle: {
+                    // color: function (o) {
+                    //     if (o.value[6] !== null) {
+                    //         return "#50a3ba";
+                    //     } else {
+                    //         return "#fff";
+                    //     }
+                    // },
+                    borderColor: "#000",
+                    borderWidth: 1,
+                    // emphasis: {
+                    //     shadowBlur: 10,
+                    //     shadowColor: "rgba(0, 0, 0, 0.5)"
+                    // }
+                }
+            };
+
+            var option_B = {
+                title: {
+                    text: '4x19-B面'
+                },
+                dataZoom: [
+                    {
+                        id: 'dataZoomY',
+                        type: 'slider',
+                        yAxisIndex: [0],
+                        startValue: 0,
+                        endValue: 10,
+                        filterMode: 'empty'
+                    },
+                    {
+                        id: 'dataZoomX',
+                        type: 'slider',
+                        xAxisIndex: [0],
+                        startValue: 0,
+                        endValue: 25,
+                        filterMode: 'empty'
+                    }
+                ],
+
+                tooltip: {
+                    position: 'top',
+                    formatter: function (params) {
+                        console.log(params)
+                        return '坐标：' + days[params.value[1]] + ',' + hours2[params.data[0]] + '<br/>' + '盒数：' + params.data[2];
+                    }
+                },
+                animation: false,
+                grid: {
+                    left: '3%',
+                    right: '8%',
+                    bottom: '8%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    data: hours2,
+                    axisLine: {
+                        lineStyle: {
+                            color: '#000'
+                        }
+                    },
+                    // axisLabel: {
+                    //     interval: 0,
+                    //     rotate: 40
+                    // },
+                    splitArea: {
+                        show: true
+                    },
+                    name: '列'
+                },
+                yAxis: {
+                    type: 'category',
+                    data: days,
+                    axisLine: {
+                        lineStyle: {
+                            color: '#000'
+                        }
+                    },
+                    // axisLabel: {
+                    //     interval: 0,
+                    //     rotate: 40
+                    // },
+                    splitArea: {
+                        show: true
+                    },
+                    name: ''
+                },
+                visualMap: {
+                    calculable: false,
+                    // calculable: true,
+                    type: 'piecewise',
+                    categories: ["1", "2", "3", "4"],
+                    inRange: {
+                        color:
+                        {
+                            '1': '#f0f0f0',
+                            '2': 'green',
+                            '3': '#FFA500',
+                            '4': 'red'
+                        },
+                    },
+                    orient: 'horizontal',
+                    left: '60%',
+                    bottom: '92%',
+
+                    formatter: function (value) {  //标签的格式化工具。  // 范围标签显示内容。
+                        // var value = 1 + Math.round(Math.random() * 2)
+
+                        if (value == 1) {
+                            return '空闲库位'
+                        } else if (value == 2) {
+                            return '正常库位'
+                        } else if (value == 4) {
+                            return '超期库位'
+                        } else if (value == 3) {
+                            return '预警库位'
+                        }
+                    },
+                    textStyle: {
+                        color: "#000"
+                    }
+                },
+                series: [{
+                    name: 'Punch Card',
+                    type: 'heatmap',
+                    data: data2,
+                    label: {
+                        normal: {
+                            show: true
+                        }
+                    },
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowColor: 'rgba(120, 0, 0, 0.5)'
+                        }
+                    }
+                }],
+                itemStyle: {
+                    // color: function (o) {
+                    //     if (o.value[6] !== null) {
+                    //         return "#50a3ba";
+                    //     } else {
+                    //         return "#fff";
+                    //     }
+                    // },
+                    borderColor: "#000",
+                    borderWidth: 1,
+                    // emphasis: {
+                    //     shadowBlur: 10,
+                    //     shadowColor: "rgba(0, 0, 0, 0.5)"
+                    // }
+                }
+            };
+
+            myChart_A.setOption(option_A);
+            myChart_B.setOption(option_B);
+
+            // echarts 窗口缩放自适应
+            window.onresize = function () {
+                echartsRecords.resize();
+            }
+
+        });
+    </script>
+</body>
+
+</html>

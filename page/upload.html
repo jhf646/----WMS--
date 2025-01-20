@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>上传</title>
+    <link rel="stylesheet" href="../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../css/public.css" media="all">
+    <script src="../lib/jquery-3.4.1/jquery-3.4.1.min.js" charset="utf-8"></script>
+    <script src="../js/xlsx.full.min.js"></script>
+</head>
+
+<body>
+    <div class="layuimini-container">
+        <div class="layuimini-main">
+
+            <!-- <blockquote class="layui-elem-quote">
+                下载BOM表:&nbsp;
+                <p style="     color: #1aa094;
+                font-weight: bold;display: inline-block;" id="xinx"> </p>
+                 <button class="layui-btn layui-btn-sm data-add-btn"> 下载BOM表 </button>
+            </blockquote> -->
+            <blockquote class="layui-elem-quote">
+                上传BOM表/详细状态显示:&nbsp;
+                <p style="     color: #1aa094;
+                font-weight: bold;display: inline-block;" id="xinx"> </p>
+            </blockquote>
+
+            <input type="file" id="fileUploader" name="fileUploader" accept=".xls, .xlsx" />
+            <!-- <input id="articleImageFile" name="excelFile" type="file" class="x-file" onclick="importExcel(this)"> -->
+            <button id="saveZipButton" type="button" class="btn" onclick="sc()"><i class="fa fa-download"></i>
+                导入</button>
+
+
+           
+            </br>
+            </br>
+            length : <label id="length"> </label>
+            </br>
+            </br>
+            JSON : <label id="jsonObject"> </label>
+
+
+            <!-- 
+            文件：<br>
+            <input type="file" id="file"><br> -->
+        </div>
+    </div>
+
+    <!-- <script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script> -->
+    <script src="../http.js"></script>
+    <script type="text/javascript">
+        console.log("上传")
+        function importExcel(obj) {
+            // $("#xinx").html("")
+            $("#xinx").html("选择文件中.....")
+            // var formData = new FormData();
+            // var name = $("#articleImageFile").val();
+            // formData.append("file", $("#articleImageFile")[0].files[0]);
+            // formData.append("name", name); //可以使用formData.append()传递多个参数
+            var formData = new FormData();
+            var filename = $("#articleImageFile").val();
+            formData.append("filename", filename);
+            formData.append("file", $("#articleImageFile")[0].files[0]);
+        }
+
+        function sc() {
+            // var formData1 = new FormData();
+            // var filename = $("#articleImageFile").val();
+            // filename = filename.split("\\")
+            // filename = filename[filename.length - 1]
+            // formData1.append("filename", filename);
+            // formData1.append("file", $("#articleImageFile")[0].files[0]);
+
+            // console.log(formData1)
+            // $.ajax({
+            //     url: http1 + "?interface=bomin",
+            //     type: 'POST',
+            //     async: true,
+            //     data: formData1,
+            //     // 告诉jQuery不要去处理发送的数据
+            //     processData: false,
+            //     // 告诉jQuery不要去设置Content-Type请求头
+            //     contentType: false,
+            //     beforeSend: function () {
+            //         $("#xinx").html("正在上传中.....")
+            //     },
+            //     success: function (result) {
+            //         if (result.results == "true") {
+            //             $("#xinx").html(result.BomID + '上传成功！');
+            //         } else if (result.results == "false") {
+            //             $("#xinx").html(result.BomID + '上传失败，数据库引擎找不到对象！');
+            //         } else {
+            //             $("#xinx").html('服务器连接失败，请重试！');
+            //         }
+            //     }
+            // });
+            let data1 = $("#jsonObject").html()
+            console.log(data1)
+            // data1= JSON.stringify(data1)
+            // console.log(data1)
+            $.ajax({
+                url: http1 + "/importbominfo",
+                type: 'POST',
+                async: true,
+                data: data1,
+                // 告诉jQuery不要去处理发送的数据
+                processData: false,
+                // 告诉jQuery不要去设置Content-Type请求头
+                contentType: false,
+                beforeSend: function () {
+                    $("#xinx").html("正在上传中.....")
+                },
+                success: function (result) {
+                    if (result.code == "200") {
+                        $("#xinx").html(result.BomID + '上传成功！');
+                    }  else {
+                        $("#xinx").html('上传失败！');
+                    }
+                }
+            });
+        }
+
+
+
+        $(document).ready(function () {
+            $("#fileUploader").change(function (evt) {
+                $("#xinx").html("选择文件中.....")
+                var selectedFile = evt.target.files[0];
+                var reader = new FileReader();
+                reader.onload = function (event) {
+                    var data = event.target.result;
+                    var workbook = XLSX.read(data, {
+                        type: 'binary'
+                    });
+                    workbook.SheetNames.forEach(function (sheetName) {
+                        var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+                        if (XL_row_object.length > 0 && sheetName == "RD") {
+                            let arr = []
+
+                            for (var i = 0; i < XL_row_object.length; i++) {
+                                let filename = $("#fileUploader").val();
+                                filename = filename.split("\\")
+                                filename = filename[filename.length - 1]
+                                filename = filename.split(".")[0]
+                                XL_row_object[i]["bomID"] = filename;
+                            }
+
+
+                            document.getElementById("length").innerHTML = "";
+                            document.getElementById("jsonObject").innerHTML = "";
+                            document.getElementById("length").innerHTML = XL_row_object.length;
+                            document.getElementById("jsonObject").innerHTML = JSON.stringify(XL_row_object);
+                            // console.log(formData1)
+
+                        }
+
+                    })
+                };
+                reader.onerror = function (event) {
+                    console.error("File could not be read! Code " + event.target.error.code);
+                };
+                // 读取上传文件为二进制
+                reader.readAsBinaryString(selectedFile);
+            });
+        });
+
+
+        // document.querySelector("#file").addEventListener("change", function () {
+        //     //获取到选中的文件
+        //     var file = document.querySelector("#file").files[0];
+        //     var type = file.name.split('.');
+        //     if (type[type.length - 1] !== 'xlsx' && type[type.length - 1] !== 'xls') {
+        //         alert('只能选择excel文件导入');
+        //         return false;
+        //     }
+        //     const reader = new FileReader();
+        //     reader.readAsBinaryString(file);
+        //     reader.onload = (e) => {
+        //         const data = e.target.result;
+        //         const zzexcel = window.XLS.read(data, {
+        //             type: 'binary'
+        //         });
+        //         const result = [];
+        //         for (let i = 0; i < zzexcel.SheetNames.length; i++) {
+        //             const newData = window.XLS.utils.sheet_to_json(zzexcel.Sheets[zzexcel.SheetNames[i]]);
+        //             result.push(...newData)
+        //         }
+        //         console.log('result', result)
+        //     }
+        // });
+
+    </script>
+
+</body>
+
+</html>

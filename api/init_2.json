@@ -1,0 +1,64 @@
+{
+    "clearInfo": {
+        "clearUrl": "api/clear.json"
+    },
+    "homeInfo": {
+        "title": "可视化界面",
+        "icon": "fa fa-home",
+        "href": "page/welcome-1.html?mpi=m-p-i-0"
+    },
+    "logoInfo": {
+        "title": "阿特拉斯系统",
+        "image": "images/atlas.jfif",
+        "href": ""
+    },
+    "menuInfo": {
+        "currency": {
+            "title": "常规管理",
+            "icon": "fa fa-address-book",
+            "child": [
+
+                {
+                    "title": "  BOM管理",
+                    "href": "",
+                    "icon": "fa fa-home",
+                    "target": "_self",
+                    "child": [{
+                        "title": "上传BOM",
+                        "href": "page/upload.html",
+                        "icon": "fa fa-line-chart",
+                        "target": "_self"
+                    },{
+                        "title": "下载BOM",
+                        "href": "page/download.html",
+                        "icon": "fa fa-line-chart",
+                        "target": "_self"
+                    }]
+                },
+                {
+                    "title": "库位管理",
+                    "href": "",
+                    "icon": "fa fa-home",
+                    "target": "_self",
+                    "child": [{
+                        "title": "库位更新",
+                        "href": "page/update.html",
+                        "icon": "fa fa-line-chart",
+                        "target": "_self"
+                    }]
+                }
+            ]
+        },
+   
+        "other": {
+            "title": "用户管理",
+            "icon": "fa fa-slideshare",
+            "child": [{
+                "title": "用户列表",
+                "href": "page/userlist.html",
+                "icon": "fa fa-superpowers",
+                "target": "_self"
+            }]
+        }
+    }
+}

@@ -1,0 +1,73 @@
+{
+  "clearInfo": {
+    "clearUrl": "api/clear.json"
+  },
+  "homeInfo": {
+    "title": "可视化界面",
+    "icon": "fa fa-home",
+    "href": "page/welcome-1.html?mpi=m-p-i-0"
+  },
+  "logoInfo": {
+    "title": "博世WMS系统",
+    "image": "images/BOSCH.svg",
+    "href": ""
+  },
+  "menuInfo": {
+    "currency": {
+      "title": "常规管理",
+      "icon": "fa fa-address-book",
+      "child": [
+        {
+          "title": "可视化界面",
+          "href": "",
+          "icon": "fa fa-home",
+          "target": "_self",
+          "child": [
+            {
+              "title": "1号类型可视化",
+              "href": "page/welcome-1.html",
+              "icon": "fa fa-line-chart",
+              "target": "_self"
+            },
+            {
+              "title": "2号类型可视化",
+              "href": "page/welcome-2.html",
+              "icon": "fa fa-line-chart",
+              "target": "_self"
+            },
+            {
+              "title": "3号类型可视化",
+              "href": "page/welcome-3.html",
+              "icon": "fa fa-line-chart",
+              "target": "_self"
+            }
+          ]
+        }     
+      ]
+    },
+    "component": {
+      "title": "系统管理",
+      "icon": "fa fa-lemon-o",
+      "child": [
+        {
+          "title": "系统设置",
+          "href": "page/11.html",
+          "icon": "fa fa-dot-circle-o",
+          "target": "_self"
+        }
+      ]
+    },
+    "other": {
+      "title": "用户管理",
+      "icon": "fa fa-slideshare",
+      "child": [
+        {
+          "title": "用户列表",
+          "href": "page/userlist.html",
+          "icon": "fa fa-superpowers",
+          "target": "_self"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+    "code": 0,
+    "msg": "",
+    "count": 22,
+    "data": [
+        { "id": "01", "id2": "01#01#OP05", "username": "精铣顶面+销孔，粗加工顶面、前后面部分内容", "min": "762.73" },
+        { "id": "02", "id2": "01#01#OP10", "username": "底面半精，销孔，排气侧，座圈底孔粗加工", "min": "762.73" },
+        { "id": "03", "id2": "01#01#OP20", "username": "", "min": "762.73" },
+        { "id": "04", "id2": "01#01#OP30", "username": "", "min": "762.73" },
+        { "id": "05", "id2": "01#01#OP40", "username": "", "min": "762.73" },
+        { "id": "06", "id2": "01#01#OP50", "username": "", "min": "762.73" },
+        { "id": "07", "id2": "01#01#OP60", "username": "顶面孔系、挺柱孔、导管座圈底孔、进气侧精加工", "min": "762.73" },
+        { "id": "08", "id2": "01#01#OP70", "username": "", "min": "762.73" },
+        { "id": "09", "id2": "01#01#OP80", "username": "", "min": "762.73" },
+        { "id": "10", "id2": "01#01#OP90", "username": "凸轮轴孔、导管座圈、底面、高压油泵安装位精加工", "min": "762.73" },
+        { "id": "11", "id2": "01#01#OP100", "username": "", "min": "762.73" },
+        {
+            "title": "可视化界面",
+            "href": "",
+            "icon": "fa fa-home",
+            "target": "_self",
+            "child": [{
+                    "title": "1号类型可视化",
+                    "href": "page/welcome-1.html",
+                    "icon": "fa fa-line-chart",
+                    "target": "_self"
+                },
+                {
+                    "title": "2号类型可视化",
+                    "href": "page/welcome-2.html",
+                    "icon": "fa fa-line-chart",
+                    "target": "_self"
+                },
+                {
+                    "title": "3号类型可视化",
+                    "href": "page/welcome-3.html",
+                    "icon": "fa fa-line-chart",
+                    "target": "_self"
+                }
+            ]
+        }
+    ]
+}

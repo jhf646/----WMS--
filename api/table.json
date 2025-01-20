@@ -1,0 +1,22 @@
+{
+    "code": 0,
+    "msg": "",
+    "count": 4,
+    "data": [{
+        "userName": "焦工",
+        "permissionID": 1,
+        "userID": "1001"
+    }, {
+        "userName": "沈工",
+        "permissionID": 2,
+        "userID": "1002"
+    }, {
+        "userName": "李工",
+        "permissionID": 2,
+        "userID": "1003"
+    }, {
+        "userName": "徐工",
+        "permissionID": 2,
+        "userID": "1004"
+    }]
+}

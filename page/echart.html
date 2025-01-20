@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
+    <link rel="stylesheet" href="../css/public.css" media="all">
+</head>
+<style>
+    #CCS1 div {
+        margin-bottom: 10px;
+    }
+    
+    #power option {
+        color: #000;
+    }
+</style>
+
+<body>
+    <div class="layuimini-container">
+        <div class="layuimini-main">
+
+            <fieldset class="table-search-fieldset">
+                <legend>搜索信息</legend>
+                <div style="margin: 10px 10px 10px 10px">
+                    <form class="layui-form layui-form-pane" action="">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">日期选择</label>
+
+                                <div class="layui-input-inline">
+                                    <input type="text" name="date" autocomplete="off" id="date" class="layui-input" placeholder="开始日期">
+                                </div>
+
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">型号</label>
+                                <div class="layui-input-inline">
+                                    <!-- <input id="HandoverCompany" type="text" name="HandoverCompany" value="F00RJ02401" autocomplete="off" class="layui-input">
+                                    <select type="text" id="hc_select" lay-filter="hc_select" autocomplete="off" placeholder="移交单位全称" lay-verify="required" class="layui-select" lay-search>
+                                    </select> -->
+
+                                    <input type="text" name="HandoverCompany" id="HandoverCompany" value="" class="layui-input" style="position:absolute;z-index:2;width:80%;" lay-verify="required" value="" onkeyup="search()" autocomplete="off">
+                                    <select type="text" id="hc_select" lay-filter="hc_select" autocomplete="off" placeholder="移交单位全称" lay-verify="required" class="layui-select" lay-search>
+            
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+
+
+                                <label class="layui-form-label">区域</label>
+                                <div class="layui-input-inline">
+                                    <select name="Station">
+                                        <option value="OP10" selected="">OP10</option>
+                                        <option value="OP20">OP20</option>
+                                        <option value="OP30">OP30</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <button type="submit" class="layui-btn layui-btn-primary" lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
+                                <button type="submit" class="layui-btn " lay-submit lay-filter="data-download-btn"><i
+                                        class="layui-icon layui-icon-download-circle"></i> 导 出</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </fieldset>
+
+
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-xs12 layui-col-md12">
+                    <div id="echarts-records" style="background-color:#ffffff;  min-height:650px;padding: 10px  0px 10px 0px"></div>
+                </div>
+
+            </div>
+            <!-- 
+            <table id='exceltable'>
+                <td>内容内容内容</td>
+            </table> -->
+            <table id='exceltable' style="width: 33%; table-layout: fixed; display: none;">
+                <thead style="background-color: #1aa094;">
+                    <tr>
+                        <th>时间</th>
+                        <th>型号</th>
+                        <th>最小值</th>
+                        <th>当前值</th>
+                        <th>最大值</th>
+                    </tr>
+                </thead>
+                <tbody id="SJ">
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="../js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+    <script src="../http.js"></script>
+    <script src="../js/jquery-2.0.3.min.js"></script>
+    <script src="../js/jquery.table2excel.js"></script>
+    <script>
+        layui.use(['layer', 'echarts', 'form', "laydate"], function() {
+            var $ = layui.jquery,
+                layer = layui.layer,
+                echarts = layui.echarts,
+                laydate = layui.laydate,
+                form = layui.form,
+                table = layui.table
+
+            function getRecentDay(day) {
+                var today = new Date();
+                var targetday_milliseconds = today.getTime() + 1000 * 60 * 60 * 24 * day;
+                today.setTime(targetday_milliseconds);
+                var tYear = today.getFullYear();
+                var tMonth = today.getMonth();
+                var tDate = today.getDate();
+                var tHours = today.getHours();
+                var tMinutes = today.getMinutes();
+                var tSeconds = today.getSeconds();
+                tMonth = doHandleMonth(tMonth + 1);
+                tDate = doHandleMonth(tDate);
+                tHours = doHandleMonth(tHours);
+                tMinutes = doHandleMonth(tMinutes);
+                tSeconds = doHandleMonth(tSeconds);
+
+                return tYear + "-" + tMonth + "-" + tDate
+            }
+
+            function doHandleMonth(month) {
+                var m = month;
+                if (month.toString().length == 1) {
+                    m = "0" + month;
+                }
+                return m;
+            }
+
+            //监听模糊查询
+            $("#HandoverCompany").bind('input propertychange', function() {
+                    f3()
+                })
+                //下拉框显示
+            function f3() {
+
+
+                var hc_select = document.getElementById("hc_select");
+
+                num1 = document.getElementById("HandoverCompany").value;
+
+                numA = num1.toString().length;
+
+                // http://192.168.0.111:8081/?interface=Model_Information&operate=SearchType&Type=0004&Station=OP10
+                let data1 = {
+                    "interface": "Model_Information",
+                    "operate": "SearchType",
+                    "Type": $("#HandoverCompany").val(),
+                    "Station": $("#QY .layui-this").html()
+                }
+
+                if (numA > 2) {
+
+                    $.ajax({
+
+                        url: http1,
+
+                        type: "get",
+
+                        // dataType: 'json',
+
+                        data: data1,
+
+                        success: function(data) {
+
+                            var hc_select = document.getElementById("hc_select");
+                            var value = $("#HandoverCompany").val();
+                            var html1 = "";
+                            var dl = $("#hc_select").next().find("dl").children();
+                            var j = -1;
+                            hc_select.innerHTML = "";
+
+                            for (let i = 0; i < data.length; i++) {
+                                html1 += `<option style="color:rgb(21, 53, 196);" value="${data[i].Type}" >${data[i].Type}</option>`
+                            }
+
+                            // html1 += `<option  value="5555" >5555</option>`
+                            hc_select.innerHTML = html1
+                            $("#hc_select").val(value);
+                            form.render();
+                            $("#hc_select").next().find("dl").css({
+                                "display": "block"
+                            });
+
+                            num1 = document.getElementById("HandoverCompany").value;
+
+                            numA = num1.toString().length;
+
+                            for (var i = 0; i < dl.length; i++) {
+                                if (dl[i].innerHTML.indexOf(value) <= -1) {
+                                    dl[i].style.display = "none";
+                                    j++;
+                                }
+                                if (j == dl.length - 1) {
+                                    $("#hc_select").next().find("dl").css({
+                                        "display": "none"
+                                    });
+                                }
+                            }
+                        },
+
+                        error: function() {
+
+                            alert("服务器连接失败！")
+
+                        }
+
+                    })
+
+                }
+
+            }
+            form.on('select(hc_select)', function(data) { //选择移交单位 赋值给input框
+                var select_text = data.elem[data.elem.selectedIndex].text;
+                $("#HandoverCompany").val(select_text);
+                $("#hc_select").next().find("dl").css({
+                    "display": "none"
+                });
+                form.render();
+
+            });
+
+            //导出函数
+            function Expor() {
+                let wjm = $("#date").val()
+                $("#exceltable").table2excel({ //exceltable为存放数据的table
+                    // 不被导出的表格行的CSS class类
+
+                    exclude: ".noExl",
+                    // 导出的Excel文档的名称
+                    // name: "表格-" + new Date().getTime(),
+                    // Excel文件的名称
+                    fileext: ".xls",
+                    filename: $("#HandoverCompany").val() + "(" + wjm.split("~")[0] + "/" + wjm.split("~")[1] + ").xls",
+                    bootstrap: false
+                });
+            }
+
+            laydate.render({
+                elem: '#date',
+                type: 'date',
+                range: '~' //或 range: '~' 来自定义分割字符
+                    ,
+                value: getRecentDay(-7) + ' ~ ' + getRecentDay(-1),
+                // value: "2021-12-06 ~ 2021-12-31",
+
+            });
+
+            // 监听搜索操作
+            form.on('submit(data-search-btn)', function(data) {
+
+                var result = JSON.stringify(data.field);
+                var result = data.field;
+                console.log(result)
+                let data1 = {
+                        "interface": "getGraphicData",
+                        "StartDay": (result.date).split("~")[0],
+                        "EndDay": (result.date).split("~")[1],
+                        "Type": result.HandoverCompany, //盒数
+                        "Station": result.Station,
+                    }
+                    // alert(getRecentDay(-1) + "//1//" + getRecentDay(-1))
+
+                let now = function() {
+
+                    return getRecentDay(0).split("-")[0] + getRecentDay(0).split("-")[1] + getRecentDay(0).split("-")[2] + ""
+                }
+                let ce = (result.date).split("~")[1]
+                let xnow = function() {
+
+                        return ce.split("-")[0] + ce.split("-")[1] + ce.split("-")[2] + ""
+                    }
+                    // alert(xnow())
+                if (parseInt(now()) > parseInt(xnow())) {
+
+                    console.log(parseInt(now()))
+
+                    console.log(parseInt(xnow()))
+
+                    $.ajax({
+
+                        url: http1,
+
+                        type: "get",
+
+                        // dataType: 'json',
+
+                        data: data1,
+
+                        success: function(res) {
+                            console.log(res)
+                            Tub(res)
+                        },
+
+                        error: function() {
+
+                            alert("服务器连接失败！")
+
+                        }
+
+                    })
+
+                } else {
+                    layer.msg('只能查询历史图表数据！', function() {});
+                }
+                // http://192.168.0.114:8081/?interface=getGraphicData&StartDay=2021-12-10&
+                // EndDay=2021-12-20&Type=F00RJ02401&Station=OP10
+                // {"date":"2021-12-06 ~ 2021-12-31","HandoverCompany":"F00RJ02401","Station":"OP10"}
+
+
+                return false;
+            });
+            // 监听下载操作
+            form.on('submit(data-download-btn)', function(data) {
+                // var result = JSON.stringify(data.field);
+                var result = JSON.stringify(data.field);
+                var result = data.field;
+
+                // http://192.168.0.114:8081/?interface=getGraphicData&StartDay=2021-12-10&
+                // EndDay=2021-12-20&Type=F00RJ02401&Station=OP10
+                // {"date":"2021-12-06 ~ 2021-12-31","HandoverCompany":"F00RJ02401","Station":"OP10"}
+                console.log(result)
+                let data1 = {
+                    "interface": "getGraphicData",
+                    "StartDay": (result.date).split("~")[0],
+                    "EndDay": (result.date).split("~")[1],
+                    "Type": result.HandoverCompany, //盒数
+                    "Station": result.Station,
+                }
+
+                $.ajax({
+
+                    url: http1,
+
+                    type: "get",
+
+                    // dataType: 'json',
+
+                    data: data1,
+
+                    success: function(res) {
+                        let html1 = ""
+                            // {"Mid_Value":0,"Max_Value":500,"Min_Value":500,"s_DateTime":"2021-12-13"}
+                        for (var i = 0; i < res.length; i++) {
+                            html1 += `<tr>
+                        <td>${res[i].s_DateTime}</td>
+                        <td>${$("#HandoverCompany").val()}</td>
+                        <td>${res[i].Min_Value}</td>
+                        <td>${res[i].Mid_Value}</td>
+                        <td>${res[i].Max_Value}</td>
+                    </tr>`
+                        }
+                        $("#SJ").html("")
+                        $("#SJ").html(html1)
+                        Expor()
+                    },
+
+                    error: function() {
+
+                        alert("服务器连接失败！")
+
+                    }
+
+                })
+
+                return false;
+            });
+            /**
+             * 报表功能
+             */
+
+            function Tub(res) {
+
+                var myChart = echarts.init(document.getElementById('echarts-records'));
+
+                // {"Mid_Value":0,"Max_Value":500,"Min_Value":500,"s_DateTime":"2021-12-13"}
+                //X轴时间
+                var s_DateTime = function() {
+                    let data = [];
+                    for (var i = 0; i < res.length; i++) {
+                        // "2021-12-16"
+                        data.push(((res[i].s_DateTime).split("-")[0]) + "/" + ((res[i].s_DateTime).split("-")[1]));
+                    }
+                    return data;
+                }();
+                //最大值
+                var Max_Value = function() {
+                    let data = [];
+                    for (var i = 0; i < res.length; i++) {
+                        data.push(res[i].Max_Value);
+                    }
+                    return data;
+                }();
+                //最小值
+                var Min_Value = function() {
+                    let data = [];
+                    for (var i = 0; i < res.length; i++) {
+                        data.push(res[i].Min_Value);
+                    }
+                    return data;
+                }();
+                //当前值
+                var Mid_Value = function() {
+                    let data = [];
+                    for (var i = 0; i < res.length; i++) {
+                        data.push(res[i].Mid_Value);
+                    }
+                    return data;
+                }();
+
+                option = {
+                    // backgroundColor: '#1d388d',
+                    backgroundColor: '#fbfbfb',
+                    "tooltip": {
+                        "trigger": "axis",
+                        "axisPointer": {
+                            "type": "shadow",
+                            textStyle: {
+                                color: "#fff"
+                            }
+
+                        },
+                    },
+                    "grid": {
+                        "borderWidth": 0,
+                        "top": 110,
+                        "bottom": 95,
+                        textStyle: {
+                            color: "#fff"
+                        }
+                    },
+                    "legend": {
+                        x: '4%',
+                        top: '4%',
+                        textStyle: {
+                            color: '#90979c',
+                        },
+                        "data": ['最大值', '当前值', '最小值']
+                    },
+
+
+                    "calculable": true,
+                    "xAxis": [{
+                        "type": "category",
+                        "axisLine": {
+                            lineStyle: {
+                                color: '#000'
+                            }
+                        },
+                        "splitLine": {
+                            "show": false
+                        },
+                        "axisTick": {
+                            "show": false
+                        },
+                        "splitArea": {
+                            "show": false
+                        },
+                        "axisLabel": {
+                            "interval": 0,
+
+                        },
+                        "data": s_DateTime,
+                    }],
+                    "yAxis": [{
+                        "type": "value",
+                        "splitLine": {
+                            "show": false
+                        },
+                        "axisLine": {
+                            lineStyle: {
+                                color: '#000'
+                            }
+                        },
+                        "splitLine": {
+                            show: true,
+                            lineStyle: {
+                                type: 'dashed',
+                                color: '#075858',
+                            },
+                        },
+                        "axisTick": {
+                            "show": false
+                        },
+                        "axisLabel": {
+                            "interval": 0,
+
+                        },
+                        "splitArea": {
+                            "show": false
+                        },
+
+                    }],
+                    "dataZoom": [{
+                        "show": true,
+                        "height": 30,
+                        "xAxisIndex": [
+                            0
+                        ],
+                        bottom: 30,
+                        "start": 0,
+                        "end": 100,
+                        handleIcon: 'path://M306.1,413c0,2.2-1.8,4-4,4h-59.8c-2.2,0-4-1.8-4-4V200.8c0-2.2,1.8-4,4-4h59.8c2.2,0,4,1.8,4,4V413z',
+                        handleSize: '110%',
+                        handleStyle: {
+                            color: "#d3dee5",
+
+                        },
+                        textStyle: {
+                            color: "#fff"
+                        },
+                        borderColor: "#90979c"
+
+
+                    }, {
+                        "type": "inside",
+                        "show": true,
+                        "height": 15,
+                        "start": 1,
+                        "end": 35
+                    }],
+                    "series": [{
+                        "name": "最大值",
+                        "type": "line",
+                        symbolSize: 10,
+                        symbol: 'circle',
+                        "itemStyle": {
+                            "normal": {
+                                "color": "#6f7de3",
+                                "barBorderRadius": 0,
+                                "label": {
+                                    "show": true,
+                                    "position": "top",
+                                    formatter: function(p) {
+                                        return p.value > 0 ? (p.value) : '';
+                                    }
+                                }
+                            }
+                        },
+                        areaStyle: {
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                    offset: 0,
+                                    color: 'rgba(0,202,149,0.3)'
+                                }, {
+                                    offset: 1,
+                                    color: 'rgba(0,202,149,0)'
+                                }], false),
+                                shadowColor: 'rgba(0,202,149, 0.9)',
+                                shadowBlur: 20
+                            }
+                        },
+                        "data": Max_Value
+                    }, {
+                        "name": "当前值",
+                        "type": "line",
+                        symbolSize: 10,
+                        symbol: 'circle',
+                        "itemStyle": {
+                            "normal": {
+                                "color": "rgba(252,230,48,1)",
+                                "barBorderRadius": 0,
+                                "label": {
+                                    "show": true,
+                                    "position": "top",
+                                    formatter: function(p) {
+                                        return p.value > 0 ? (p.value) : '';
+                                    }
+                                }
+                            }
+                        },
+                        areaStyle: {
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                    offset: 0,
+                                    color: 'rgba(0,202,149,0.3)'
+                                }, {
+                                    offset: 1,
+                                    color: 'rgba(0,202,149,0)'
+                                }], false),
+                                shadowColor: 'rgba(0,202,149, 0.9)',
+                                shadowBlur: 20
+                            }
+                        },
+                        "data": Mid_Value
+                    }, {
+                        "name": "最小值",
+                        "type": "line",
+                        symbolSize: 10,
+                        symbol: 'circle',
+                        "itemStyle": {
+                            "normal": {
+                                "color": "#c257F6",
+                                "barBorderRadius": 0,
+                                "label": {
+                                    "show": true,
+                                    "position": "top",
+                                    formatter: function(p) {
+                                        return p.value > 0 ? (p.value) : '';
+                                    }
+                                }
+                            }
+                        },
+                        areaStyle: {
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                    offset: 0,
+                                    color: 'rgba(0,202,149,0.3)'
+                                }, {
+                                    offset: 1,
+                                    color: 'rgba(0,202,149,0)'
+                                }], false),
+                                shadowColor: 'rgba(0,202,149, 0.9)',
+                                shadowBlur: 20
+                            }
+                        },
+                        "data": Min_Value
+                    }, ]
+                }
+
+                myChart.setOption(option);
+
+                // echarts 窗口缩放自适应
+                window.onresize = function() {
+                    myChart.resize();
+                }
+            }
+
+
+        });
+    </script>
+
+</body>
+
+</html>

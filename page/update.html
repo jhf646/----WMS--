@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../css/public.css" media="all">
+    <link rel="stylesheet" href="../lib/layui-soul-table/soulTable.css" media="all">
+</head>
+<style>
+    #CCS1 div {
+        margin-bottom: 10px;
+    }
+
+    #permissionID option {
+        color: #000;
+    }
+</style>
+
+<body>
+    <div class="layuimini-container">
+        <div class="layuimini-main">
+
+            <fieldset class="table-search-fieldset">
+                <legend>搜索信息</legend>
+                <div style="margin: 10px 10px 10px 10px">
+                    <form class="layui-form layui-form-pane" action="">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">库位号</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="RackID" autocomplete="off" class="layui-input">
+                            </div>
+                            <label class="layui-form-label">区域</label>
+                            <div class="layui-input-inline">
+                                <select name="RackArea">
+                                    <!-- <option value="" selected="">全选</option> -->
+                                    <option value="P1">P1</option>
+                                    <!-- <option value="供应商">供应商</option> -->
+                                </select>
+                                <!-- <input type="text" name="RackArea" autocomplete="off" class="layui-input"> -->
+                            </div>
+                            <div class="layui-inline">
+                                <button type="submit" class="layui-btn layui-btn-primary" lay-submit
+                                    lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </fieldset>
+
+            <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+                <!-- <button class="layui-btn layui-btn-sm data-add-btn"> 更新订单优先级 </button> -->
+            </div>
+            </script>
+
+            <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+            <script type="text/html" id="currentTableBar">
+                <a class="layui-btn layui-btn-sm data-count-edit" lay-event="edit">编辑</a>
+            </script>
+        </div>
+
+
+        <div id="PZM" class="layui-form layuimini-form"
+            style="padding: 22px; line-height: 22px; font-weight: 300;display: none;">
+            <div id="CCS1" class="layui-form-item">
+
+
+
+                <label class="layui-form-label required" style="text-align: right;">库位号:</label>
+                <div class="layui-input-block">
+                    <input id="RackID" type="text" name="RackID" lay-verify="required" lay-reqtext="输入库位号"
+                        placeholder="请输入库位号" class="layui-input">
+                </div>
+
+                <label class="layui-form-label required" style="text-align: right;">区域号:</label>
+                <div class="layui-input-block">
+                    <input id="RackArea" type="text" name="RackArea" lay-verify="required" lay-reqtext="输入区域号"
+                        placeholder="请输入区域号" class="layui-input">
+                </div>
+
+                <label class="layui-form-label required" style="text-align: right;">库位类型:</label>
+                <div class="layui-input-block">
+                    <select id="RackType" name="RackType">
+                        <option value="small">小</option>
+                        <!-- <option value="供应商">供应商</option> -->
+                    </select>
+                </div>
+                <label class="layui-form-label required" style="text-align: right;">库位状态:</label>
+                <div class="layui-input-block">
+                    <select id="RackStatus" name="RackStatus">
+                        <option value="启用">启用</option>
+                        <option value="禁用">禁用</option>
+                    </select>
+                </div>
+
+                <label class="layui-form-label required" style="text-align: right;"> 出口地址:</label>
+                <div class="layui-input-block">
+                    <input id="AddressOutput" type="text" name="AddressOutput" lay-verify="required"
+                        lay-reqtext="输入出口地址" placeholder="请输入出口地址" class="layui-input">
+                </div>
+
+                <label class="layui-form-label required" style="text-align: right;">入口地址:</label>
+                <div class="layui-input-block">
+                    <input id="AddressInput" type="text" name="AddressInput" lay-verify="required" value=""
+                        lay-reqtext="输入入口地址" placeholder="请输入入口地址" class="layui-input">
+                    <!-- <input id="PassWord" type="text" name="PassWord" lay-verify="required" readonly="readonly" value="123456" lay-reqtext="输入用户名" placeholder="请输入用户名" class="layui-input"> -->
+                </div>
+                <label class="layui-form-label required" style="text-align: right;">物料号:</label>
+                <div class="layui-input-block">
+                    <input id="ItemNo" type="text" name="ItemNo" lay-verify="required" value="" lay-reqtext="输入物料号"
+                        placeholder="请输入物料号" class="layui-input">
+                    <!-- <input id="PassWord" type="text" name="PassWord" lay-verify="required" readonly="readonly" value="123456" lay-reqtext="输入用户名" placeholder="请输入用户名" class="layui-input"> -->
+                </div>
+
+                <label class="layui-form-label required" style="text-align: right;">物料名称:</label>
+                <div class="layui-input-block">
+                    <input id="ItemName" type="text" name="ItemName" lay-verify="required" value="" lay-reqtext="输入物料名称"
+                        placeholder="请输入物料名称" class="layui-input">
+                    <!-- <input id="PassWord" type="text" name="PassWord" lay-verify="required" readonly="readonly" value="123456" lay-reqtext="输入用户名" placeholder="请输入用户名" class="layui-input"> -->
+                </div>
+                <label class="layui-form-label required" style="text-align: right;">安全库存:</label>
+                <div class="layui-input-block">
+                    <input id="PackQty" type="text" name="PackQty" lay-verify="required" value="" lay-reqtext="输入安全库存"
+                        placeholder="请输入安全库存" class="layui-input">
+                    <!-- <input id="PassWord" type="text" name="PassWord" lay-verify="required" readonly="readonly" value="123456" lay-reqtext="输入用户名" placeholder="请输入用户名" class="layui-input"> -->
+                </div>
+                <label class="layui-form-label required" style="text-align: right;">库存:</label>
+                <div class="layui-input-block">
+                    <input id="ItemQty" type="text" name="ItemQty" lay-verify="required" value="" lay-reqtext="输入库存"
+                        placeholder="请输入库存" class="layui-input">
+                    <!-- <input id="PassWord" type="text" name="PassWord" lay-verify="required" readonly="readonly" value="123456" lay-reqtext="输入用户名" placeholder="请输入用户名" class="layui-input"> -->
+                </div>
+                <label class="layui-form-label required" style="text-align: right;">最大补料数:</label>
+                <div class="layui-input-block">
+                    <input id="MaxItemQty" type="text" name="MaxItemQty" value="" lay-verify="required"
+                        lay-reqtext="输入最大补料数" placeholder="请输入最大补料数" class="layui-input">
+                </div>
+                <label class="layui-form-label required" style="text-align: right;">入库时间:</label>
+                <div class="layui-input-block">
+                    <input type="text" name="InputDatetime" id="InputDatetime" lay-verify="required"
+                        lay-reqtext="请选择时间,如果操作失误可以关闭弹框,重新编辑！" placeholder="选择生产日期" class="layui-input">
+
+                </div>
+
+
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-filter="demo1" lay-submit="">⽴即提交</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="soulTable.js" charset="utf-8"></script>
+    <script src="soulTable.slim.js"></script>
+    <script src="tableChild.js"></script>
+    <script src="tableMerge.js"></script>
+    <script src="tableFilter.js"></script>
+    <script src="excel.js"></script>
+    <script src="../http.js"></script>
+    <script>
+        layui.use(['form', 'table', 'laydate', 'soulTable', 'element'], function () {
+            var $ = layui.jquery,
+                form = layui.form,
+                table = layui.table,
+                layuimini = layui.layuimini,
+                laydate = layui.laydate;
+            soulTable = layui.soulTable;
+
+            element = layui.element;
+
+            laydate.render({
+                elem: '#date1'
+                , type: 'datetime'
+                , range: '~' //或 range: '~' 来自定义分割字符
+            });
+
+
+
+
+            // 初始化日期选择器
+            laydate.render({
+                elem: '#InputDatetime', //指定元素
+                type: 'datetime' //日期选择器类型
+            });
+
+            table.render({
+                elem: '#currentTableId',
+                // url: '../api/moni.json',
+                url: http1 + '/queryrockinfo',
+                contentType: 'application/json,charset=utf-8',
+                toolbar: '#toolbarDemo',
+                method: "post",
+                defaultToolbar: ['filter', 'exports', 'print', {
+                    title: '提示',
+                    layEvent: 'LAYTABLE_TIPS',
+                    icon: 'layui-icon-tips'
+                }],
+                parseData: function (res) { //res 即为原始返回的数据
+                    return {
+                        "code": 0,
+                        "msg": "",
+                        "count": "",
+                        "data": res.data //解析数据列表
+                    };
+                },
+                where: {
+                    RackID: '',
+                    RackArea: 'P1'
+                },
+                cols: [[
+
+                    //                         "rackID": "93L03-1-07",
+                    //         "ItemNumber": "7777",
+                    //         "stockNum": 100,
+                    //         "inDate": "2022-04-20 09:46:56",
+                    //         "description": null,
+                    //         "safeStockNum": 50
+                    {
+                        field: 'RackID', width: 120, title: '库位号',
+                        sort: true
+                    },
+                    {
+                        field: 'RackType', width: 120, title: '库位类型',
+                        sort: true
+                    },
+                    {
+                        field: 'RackArea', width: 120, title: '区域号',
+                        sort: true
+                    },
+                    // {
+                    //     field: 'RackStatus', width: 120, title: '库位状态',
+                    //     sort: true
+                    // },
+                    {
+                        field: 'RackStatus', minwidth: 120, title: '库位状态',
+                        templet: function (d) {
+                            if (d.RackStatus == "启用") {
+                                return '<span style="color: #3CB371;font-weight: bold;">启用</span>'
+
+                            } else {
+                                return '<span style="color: #dd670f; font-weight: bold;">禁用</span>'
+                            }
+                        }
+                    },
+                    {
+                        field: 'AddressOutput', width: 120, title: '出口地址',
+                        sort: true
+                    },
+                    {
+                        field: 'AddressInput', width: 120, title: '入口地址',
+                        sort: true
+                    },
+                    {
+                        field: 'ItemNo', width: 120, title: '物料号',
+                        sort: true
+                    },
+                    {
+                        field: 'ItemName', width: 120, title: '物料名称',
+                        sort: true
+                    },
+                    {
+                        field: 'ItemQty', width: 120, title: '库存',
+                        sort: true
+                    },
+                    {
+                        field: 'PackQty', width: 120, title: '安全库存',
+                        sort: true
+                    },
+                    {
+                        field: 'MaxItemQty', width: 120, title: '最大补料数',
+                        sort: true
+                    },
+                    {
+                        field: 'InputDatetime', width: 120, title: '入库时间',
+                        sort: true
+                    },
+
+                    { title: '操作', minWidth: 50, templet: '#currentTableBar', fixed: "right", align: "center" }
+                ]],
+
+                // limits: [10, 15, 20, 50, 100,200],
+                // limit: 10,
+                page: false
+            });
+
+
+            form.on('submit(data-search-btn)', function (data) {
+                var result = JSON.stringify(data.field);
+                // layer.alert(result, {
+                //     title: '最终的搜索信息'
+                // });
+
+                //执行搜索重载
+                table.reload('currentTableId', {
+                    page: {
+                        curr: 1
+                    },
+                    where: data.field
+                }, 'data');
+
+                return false;
+            });
+
+            //编辑
+            form.on('submit(demo1)', function (data) {
+                // layer.alert(JSON.stringify(data.field), {
+                //     title: '最终的提交信息'
+                // })
+
+                $.ajax({
+
+                    url: http1 + "/updaterockinfo",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(data.field),
+                    success: function (data) {
+                        if (data.code == "200") {
+                            layer.msg('修改成功！', function () { });
+                            // alert("提交成功：" + data)
+                            layer.closeAll()
+                            table.reload('currentTableId', {
+                                page: {
+                                    curr: 1
+                                },
+                                where: {
+
+                                }
+                            }, 'data');
+                        } else {
+                            layer.msg(data.msg, function () { });
+                        }
+
+                    },
+
+                    error: function () {
+
+                        alert("服务器连接失败！")
+
+                    }
+
+                })
+
+
+                return false;
+            });
+
+
+            table.on('tool(currentTableFilter)', function (obj) {
+                var data = obj.data;
+                if (obj.event === 'edit') {
+                    console.log("ce")
+                    var index = layer.open({
+                        type: 1,
+                        title: "编辑库位料号" //不显示标题栏
+                        ,
+                        // closeBtn: false,
+                        area: '500px;',
+                        shade: 0.8,
+                        id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                        ,
+                        // btn: ['确定', '取消'],
+                        btnAlign: 'c',
+                        moveType: 1 //拖拽模式，0或者1
+                        ,
+                        content: $("#PZM"),
+                        success: function (layero) {
+                            // 批量赋值
+                            $.each(data, function (key, value) {
+                                // 假设表单元素的name属性与data对象的属性名相同
+                                $('#PZM input[name="' + key + '"], #PZM select[name="' + key + '"], #PZM textarea[name="' + key + '"]').val(value);
+                            });
+                            form.render()
+                        },
+                        yes: function (layero, index) {
+
+
+                        }
+                    });
+
+                    $(window).on("resize", function () {
+                        layer.full(index);
+                    });
+
+                    return false;
+                }
+            });
+
+        });
+    </script>
+</body>
+
+</html>

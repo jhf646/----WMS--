@@ -1,0 +1,76 @@
+{
+    "clearInfo": {
+        "clearUrl": "api/clear.json"
+    },
+    "homeInfo": {
+        "title": "可视化界面",
+        "icon": "fa fa-home",
+        "href": "page/echart - datazom.html?mpi=m-p-i-0"
+    },
+    "logoInfo": {
+        "title": "BOSCH",
+        "image": "images/favicon.ico",
+        "href": ""
+    },
+    "menuInfo": {
+        "currency": {
+            "title": "常规管理",
+            "icon": "fa fa-address-book",
+            "child": [
+
+                {
+                    "title": "图标分析",
+                    "href": "",
+                    "icon": "fa fa-home",
+                    "target": "_self",
+                    "child": [{
+                        "title": "最大数值图表",
+                        "href": "page/echart - datazom.html",
+                        "icon": "fa fa-line-chart",
+                        "target": "_self"
+                    }, {
+                        "title": "最大数值图表",
+                        "href": "page/echart.html",
+                        "icon": "fa fa-line-chart",
+                        "target": "_self"
+                    }, {
+                        "title": "库存统计",
+                        "href": "page/echart_bar.html",
+                        "icon": "fa fa-line-chart",
+                        "target": "_self"
+                    }]
+                }, {
+                    "title": "任务单据",
+                    "href": "",
+                    "icon": "fa fa-home",
+                    "target": "_self",
+                    "child": [{
+                        "title": "任务计划单",
+                        "href": "page/Bosch.html",
+                        "icon": "fa fa-line-chart",
+                        "target": "_self"
+                    }]
+                }
+
+            ]
+        },
+
+        "other": {
+            "title": "系统管理",
+            "icon": "fa fa-slideshare",
+            "child": [{
+                    "title": "用户管理",
+                    "href": "page/userlist.html",
+                    "icon": "fa fa-superpowers",
+                    "target": "_self"
+                },
+                {
+                    "title": "系统参数",
+                    "href": "page/setting.html",
+                    "icon": "fa fa-line-chart",
+                    "target": "_self"
+                }
+            ]
+        }
+    }
+}
