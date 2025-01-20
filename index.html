@@ -126,8 +126,13 @@
                 layer = layui.layer;
 
             layuimini.init('api/init_2.json');
-            // var qx = sessionStorage.getItem("permissionID");
+            var qx = sessionStorage.getItem("PowerKey");
 
+            if (qx == "1") {
+                layuimini.init('api/init_2.json');
+            } else {
+                layuimini.init('api/init_1.json');
+            }
             // layuimini.init('api/init_' + qx + '.json');
 
             // $("#name").html("")
