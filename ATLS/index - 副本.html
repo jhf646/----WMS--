@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/index_1.css">
+    <link rel="stylesheet" href="css/xs.css">
+    <link rel="stylesheet" href="css/swiper-bundle.min.css" />
+</head>
+
+<body>
+    <header>
+        <p class="bt">阿 特 拉 斯 智 能 看 板</p>
+        <div class="showTime">当前时间：<span></span></div>
+    </header>
+    <section class="mainbox">
+
+        <div class="column">
+            <!-- <div class="panel grid lz"> -->
+            <div class="no">
+                <div class="no-hd">
+                    <ul>
+                        <li id="" style="color: #faf9f9;">64</li>
+                        <li id="safetyNumber" style="color: #00ff14;">32</li>
+                        <li id="warnNumber" style="color: #ffc800;">6</li>
+                        <li id="dangerNumber" style="color: #ff2300;">12</li>
+
+                    </ul>
+                </div>
+                <div class="no-bd">
+                    <ul>
+                        <li>库存总数量</li>
+                        <li>绿色安全数量</li>
+                        <li>黄色警戒数量</li>
+                        <li>红色危险数量</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- </div> -->
+
+
+
+        </div>
+
+        <div class="column">
+            <div class="panel bar">
+                <h2>
+                    今日拣货总数
+                </h2>
+                <div class="">
+
+                    <div class="">
+
+                        <ul>
+                            <li class="jh" style="color: #31cfcf;">0</li>
+
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <div class="panel line">
+                <h2>缺料清单</h2>
+                <div>
+                    <ul class="buliao">
+                        <li>0</li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="panel pie">
+                <h2>拣货任务</h2>
+                <div>
+                    <ul class="queliao">
+                        <li>0</li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <script src="js/jquery-2.0.3.min.js"></script>
+    <script src="js/flexible.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/china.js"></script>
+    <script src="js/myMap.js"></script>
+    <script src="js/isotope.pkgd.js"></script>
+    <script src="js/http.js"></script>
+    <script src="js/swiper-bundle.js"></script>
+    <script>
+        (function(fn) {
+            fn();
+
+            setInterval(fn, 1000);
+        })(function() {
+            var dt = new Date();
+            console.log(dt.getMonth())
+            document.querySelector(".showTime span").innerHTML =
+                dt.getFullYear() + "年" +
+                (dt.getMonth() + 1) + "月" +
+                dt.getDate() + "日-" +
+                dt.getHours() + "时" +
+                dt.getMinutes() + "分" +
+                dt.getSeconds() + "秒";
+        });
+
+
+
+        // external js: isotope.pkgd.js
+
+        var swiper = new Swiper(".mySwiper", {
+            spaceBetween: 30,
+            centeredSlides: true,
+            //左右
+            on: {
+                slideChangeTransitionStart: function() {
+                    //0页面时加载1页面，反之1页面时加载0页面
+                    if (this.activeIndex == 0) {
+                        console.log("1")
+
+                    } else if (this.activeIndex == 1) {
+                        console.log("2")
+
+
+                    }
+                },
+            },
+            //固定列
+            // initialSlide: 1,
+            autoplay: {
+                delay: 10000,
+                disableOnInteraction: false,
+            },
+            // pagination: {
+            //     el: ".swiper-pagination",
+            //     clickable: true,
+            //     renderBullet: function(index, className) {
+            //         return '<span class="' + className + '">' + (index + 1) + '号货架</span>';
+            //     }
+            // },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+
+        });
+
+        // init Isotope
+        var $grid = $('.grid').isotope({
+            itemSelector: '.element-item',
+            layoutMode: 'fitRows',
+            getSortData: {
+                name: '.name',
+                symbol: '.symbol',
+                number: '.number parseInt',
+                category: '[data-category]',
+                weight: function(itemElem) {
+                    var weight = $(itemElem).find('.weight').text();
+                    return parseFloat(weight.replace(/[\(\)]/g, ''));
+                }
+            }
+        });
+
+        // filter functions
+        var filterFns = {
+            // show if number is greater than 99.6
+            numberGreaterThan50: function() {
+                var number = $(this).find('.number').text();
+                return parseInt(number, 10) > 50;
+            },
+            // show if name ends with -ium
+            ium: function() {
+                var name = $(this).find('.name').text();
+                return name.match(/ium$/);
+            }
+        };
+
+        // bind filter button click
+        $('#filters').on('click', 'button', function() {
+            var filterValue = $(this).attr('data-filter');
+            // use filterFn if matches value
+            filterValue = filterFns[filterValue] || filterValue;
+            $grid.isotope({
+                filter: filterValue
+            });
+        });
+
+        // bind sort button click
+        $('#sorts').on('click', 'button', function() {
+            var sortByValue = $(this).attr('data-sort-by');
+            $grid.isotope({
+                sortBy: sortByValue
+            });
+        });
+
+        // change is-checked class on buttons
+        $('.button-group').each(function(i, buttonGroup) {
+            var $buttonGroup = $(buttonGroup);
+            $buttonGroup.on('click', 'button', function() {
+                $buttonGroup.find('.is-checked').removeClass('is-checked');
+                $(this).addClass('is-checked');
+            });
+        });
+
+
+
+        (function(fn) {
+            fn();
+            setInterval(fn, 10000);
+        })(function() {
+            //库位信息
+            $.ajax({
+                // url: http1 + "?interface=GetLnventoryInformation",
+                url: http1 + "?interface=GetInventoryInformation",
+                type: "get",
+                dataType: 'json',
+                success: function(data) {
+
+                    $(".bh").html("")
+                    $("#safetyNumber").html("")
+                    $("#warnNumber").html("")
+                    $("#dangerNumber").html("")
+                    $("#safetyNumber").html(data.safetyNumber)
+                    $("#warnNumber").html(data.warnNumber)
+                    $("#dangerNumber").html(data.dangerNumber)
+
+                    for (let i = 0; i < data.infoList.length; i++) {
+                        let html1 = ""
+                        let ItemNumber = data.infoList[i].ItemNumber
+                        let rackID = data.infoList[i].rackID
+                        if (ItemNumber == "") {
+
+                            ItemNumber = `nbsp;`
+                        }
+
+                        html1 = ` <ul>
+                                            <li>轴承号:</li>
+                                            <li>${ItemNumber} &nbsp;</li>
+                                            <li>数量:</li>
+                                            <li>${data.infoList[i].stockNum}</li>
+                                        </ul>`
+                        console.log(rackID.slice(6))
+                        console.log(rackID)
+                        $("#" + rackID + " .bh").html(html1)
+
+                        $("#" + rackID + "").css("backgroundColor", function() {
+                                return (data.infoList[i].ItemNumber) == "" ? "" : (data.infoList[i].stockNum) == (data.infoList[i].safeStockNum) ? "#d4e926" : (data.infoList[i].stockNum) > (data.infoList[i].safeStockNum) ? "#00ff14" : "red";
+                            })
+                            // $("#Box_" + parseInt(data.infoList[i].rackID.slice(3)) + "").css("backgroundColor", "#d4e926")
+                    }
+
+                },
+                error: function() {
+
+                }
+            })
+
+
+            //拣货总数
+            $.ajax({
+                    // url: http1 + "?interface=GetLnventoryInformation",
+                    url: http1 + "?interface=totalNumber",
+                    type: "get",
+                    dataType: 'json',
+                    success: function(data) {
+                        // Total
+                        $(".jh").html("")
+                        $(".jh").html(data)
+                    },
+                    error: function() {
+
+                    }
+                })
+                //缺料清单
+            $.ajax({
+                    // url: http1 + "?interface=GetLnventoryInformation",
+                    url: http1 + "?interface=shortageList",
+                    type: "get",
+                    dataType: 'json',
+                    success: function(data) {
+
+                        $(".buliao").html("")
+                        $(".buliao").html(function() {
+                            let html1 = ""
+                            for (var i = 0; i < data.length; i++) {
+
+                                html1 += ` <li  style="color: #31cfcf; margin-top:5px">库位:${data[i].rackNumber}-物料:${data[i].bearingNumber}-缺料数量:${data[i].lackMaterials}</li>`
+                            }
+                            return html1
+                        })
+                    },
+                    error: function() {
+
+                    }
+                })
+                //拣货任务
+            $.ajax({
+                // url: http1 + "?interface=GetLnventoryInformation",
+                url: http1 + "?interface=pickingList",
+                type: "get",
+                dataType: 'json',
+                success: function(data) {
+                    $(".queliao").html("")
+                    $(".queliao").html(function() {
+                        let html1 = ""
+                        for (var i = 0; i < data.length; i++) {
+
+                            html1 += ` <li  style="color: #31cfcf; margin-top:5px">库位:${data[i].rackNumber}-物料:${data[i].bearingNumber}-取料数量:${data[i].pickNumber}</li>`
+                        }
+                        return html1
+                    })
+                },
+                error: function() {
+
+                }
+            })
+        });
+    </script>
+</body>
+
+</html>

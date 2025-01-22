@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <div id="xs"></div>
+    <div id="wz"></div>
+
+    <script>
+        var jg = document.getElementById("wz")
+        var biao = ""
+        f2()
+
+        function f2() {
+
+
+            for (var k = 1; k < 5; k++) {
+                biao += `<table width="100%" height="290px" border="1" id="tab${k}" name=""><caption>货架${k}</caption>`
+                for (var i = 1; i < 11; i++) {
+                    biao += `<tr>`
+                    for (var j = 1; j < 9; j++) {
+                        biao += `<td onmouseover=f1(${k},${i},${j})></td>`
+                            // biao +=`</td>`
+                    }
+                    biao += `</tr>`
+                }
+                biao += `<table>`
+            }
+            console.log(biao)
+            jg.innerHTML = biao
+        }
+
+        function f1(k, i, j) {
+            document.getElementById("xs").innerHTML = ""
+            document.getElementById("xs").innerHTML = "鼠标所在的位置:第" + k + "个货架-第" + i + "层-第" + j + "列"
+        }
+    </script>
+
+    <style>
+        #wz {
+            column-count: 2;
+        }
+        
+        td {
+            background-color: rgb(22, 218, 218);
+        }
+    </style>
+
+</body>
+
+</html>
