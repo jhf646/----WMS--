@@ -407,14 +407,14 @@ header .showTime {
 
 .swiper_01 .box_sz,
 .swiper_02 .box_sz {
-    width: 102%;
+    width: 100%;
     position: inherit;
     background: #43529c;
     height: 0.4rem;
     line-height: 0.4rem;
     top: 0.859rem;
     left: -0.002rem;
-    font-size: 0.1rem;
+    font-size: 0.15rem;
     text-align: center;
     border: 1px solid #000;
     color: #ffffff;
@@ -455,7 +455,7 @@ header .showTime {
     /* line-height: 0.4rem; */
     top: 0rem;
     /* left: -0.002rem; */
-    font-size: 0.1rem;
+    font-size: 0.15rem;
     /* text-align: center; */
     /* border: 1px solid #000; */
     color: #3a1e1e;

@@ -1,0 +1,94 @@
+[{
+        "ShelfRow": 1,
+        "CarInfo": [{
+                "ItemCode": "37201",
+                "BatchNumber": "12345678",
+                "CarInTime": null,
+                "ShelfCol": 1,
+                "ShelfRow": 1,
+                "ShelfSerial": "00010001",
+                "Quantity": null,
+                "LineProduction": "123",
+                "ProductionDate": "2019-01-01"
+            },
+            {
+                "ItemCode": "37202",
+                "BatchNumber": null,
+                "CarInTime": null,
+                "ShelfCol": 2,
+                "ShelfRow": 1,
+                "ShelfSerial": "00020001",
+                "Quantity": null,
+                "LineProduction": "123",
+                "ProductionDate": "2019-01-01"
+
+            },
+            {
+                "ItemCode": "37203",
+                "BatchNumber": null,
+                "CarInTime": null,
+                "ShelfCol": 3,
+                "ShelfRow": 1,
+                "ShelfSerial": "00030001",
+                "Quantity": null,
+                "LineProduction": "123",
+                "ProductionDate": "2019-01-01"
+
+            }
+        ]
+    },
+    {
+        "ShelfRow": 2,
+        "CarInfo": [{
+                "ItemCode": "37402",
+                "BatchNumber": "12345678",
+                "CarInTime": null,
+                "ShelfCol": 1,
+                "ShelfRow": 2,
+                "ShelfSerial": "00010002",
+                "Quantity": null,
+                "LineProduction": "123",
+                "ProductionDate": "2019-01-01"
+            },
+            {
+                "ItemCode": "37402",
+                "BatchNumber": null,
+                "CarInTime": null,
+                "ShelfCol": 2,
+                "ShelfRow": 2,
+                "ShelfSerial": "00020002",
+                "Quantity": null,
+                "LineProduction": "123",
+                "ProductionDate": "2019-01-01"
+
+            }
+        ]
+    },
+    {
+        "ShelfRow": 3,
+        "CarInfo": [{
+                "ItemCode": "37501",
+                "BatchNumber": "12345678",
+                "CarInTime": null,
+                "ShelfCol": 1,
+                "ShelfRow": 2,
+                "ShelfSerial": "00010003",
+                "Quantity": null,
+                "LineProduction": "123",
+                "ProductionDate": "2019-01-01"
+            },
+            {
+                "ItemCode": "37503",
+                "BatchNumber": null,
+                "CarInTime": null,
+                "ShelfCol": 2,
+                "ShelfRow": 3,
+                "ShelfSerial": "00020003",
+                "Quantity": null,
+                "LineProduction": "123",
+                "ProductionDate": "2019-01-01"
+
+            }
+        ]
+    }
+]

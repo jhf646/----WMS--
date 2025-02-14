@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <title></title>
+    <script src="js/jquery-2.0.3.min.js"></script>
+    <script src="js/http.js"></script>
+    <script>
+        var ws;
+        // const wsuri = "ws://192.168.199.137:8081/"; 
+        $().ready(function() {
+            $('#conn').click(function() {
+                //ws = new WebSocket('ws://' + window.location.hostname + ':' + window.location.port + '/Handler1.ashx?user=' + $("#user").val());
+                // ws = new WebSocket('ws://192.168.199.176:8080/Handler1.ashx?user=' + $("#user").val());
+
+                ws = new WebSocket("ws://192.168.199.137:8081/");
+
+                $('#msg').append('<p>正在连接——' + showtime() + '</p>');
+
+                ws.onopen = function() {
+                    $('#msg').append('<p>已经连接——' + showtime() + '</p>');
+                }
+                ws.onmessage = function(evt) {
+                    $('#msg').append('<p>' + evt.data + '——' + showtime() + '</p>');
+                }
+                ws.onerror = function(evt) {
+                    $('#msg').append('<p>' + JSON.stringify(evt) + '——' + showtime() + '</p>');
+                }
+                ws.onclose = function() {
+                    $('#msg').append('<p>已经关闭——' + showtime() + '</p>');
+                }
+            });
+
+            $('#close').click(function() {
+                ws.close();
+            });
+
+            $('#send').click(function() {
+                if (ws.readyState == WebSocket.OPEN) {
+                    ws.send($("#to").val() + "|" + $('#content').val());
+                } else {
+                    $('#tips').text('连接已经关闭');
+                }
+            });
+
+            function showtime() {
+                var mydate = new Date();
+                var str = "" + mydate.getFullYear() + "年";
+                str += (mydate.getMonth() + 1) + "月";
+                str += mydate.getDate() + "日";
+                str += mydate.getHours() + "时";
+                str += mydate.getMinutes() + "分";
+                str += mydate.getSeconds() + "秒";
+                return str;
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <div>
+        <input id="user" type="text" />
+        <input id="conn" type="button" value="连接" />
+        <input id="close" type="button" value="关闭" /><br />
+        <span id="tips"></span>
+        <input id="content" type="text" />
+        <input id="send" type="button" value="发送" /><br />
+        <input id="to" type="text" />目的用户
+        <div id="msg">
+        </div>
+    </div>
+</body>
+
+</html>

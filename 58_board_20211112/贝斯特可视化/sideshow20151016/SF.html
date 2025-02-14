@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" >
+</body>
+<script>
+// 1 1
+// 2 1
+// 3 2
+// 4 2
+// 5 3
+// 6 3
+// 7 3
+// 8 4
+// 9 
+var array = [1,0,0,0,0,0]
+var year = 1
+var current = 5
+/**
+ * @array  每一岁牛对应数组
+ * @year 计年器
+ * @current 动态计算的年数
+ */
+function howmanycows (array,year,current) {
+    let newarr = []
+
+    if (current == year) {
+        console.log('可以输出了',array)
+        return array
+    }
+
+    //仅计算岁数分布
+    array.forEach((item,i)=>{
+        if(i == 0) {
+            newarr[0] = 0   //首先上一年一岁的牛，第二年肯定已经两岁了，一岁首先清零
+        }else{
+            newarr[i] = array[i-1]     //牛每一年长一岁，所以数量取上一年前一位索引的value即可
+        }
+    })
+
+    // 单独计算一岁的新生牛
+    newarr[0] = newarr[2] + newarr[4]
+    //单独减去6岁的牛
+    newarr[5] = 0
+
+    return howmanycows(newarr, year+1, current)
+}
+let finalArr = howmanycows(array,year,current)
+let allNums = finalArr.reduce( (a,b) => a+b )
+
+console.log('第'+current+'年'+allNums+'只')
+</script>
+</html>

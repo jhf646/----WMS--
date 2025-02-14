@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+
+<head>
+    <meta charset="utf-8">
+</head>
+
+<body style="height: 100%; margin: 0">
+    <div id="container" style="height: 100%">11</div>
+    <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="js/echarts.min.js"></script>
+    <!-- <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+    <script type="text/javascript"
+        src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+
+    <script type="text/javascript"
+        src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script> -->
+    <script type="text/javascript">
+
+        var uploadedDataURL ="echarts_geojson/json/china.json";
+        // var uploadedDataURL = "/asset/get/s/data-1479697763933-ByhDrJlGx.json";
+        var myChart = echarts.init(document.getElementById('container'));
+
+        $.get(uploadedDataURL, function (data) {
+            echarts.registerMap('china', data);
+
+            var geoCoordMap = {
+                //[宽，高]
+                '出口': [900, 650],
+                '入口': [1300, 650],
+                '等待进入电梯': [1100, 650],
+                '等待进去通道': [1100, 300],
+                '1号通道待置区': [700, 300],
+                '2号通道待置区': [500, 300],
+                '3号通道待置区': [300, 300],
+                '1号通道出货区': [700, 100],
+                '2号通道出货区': [500, 100],
+                '3号通道出货区': [300, 100]
+            };
+
+            var data = {
+                '出口': "1",
+                '入口': "1",
+                '等待进入电梯': "1",
+                '等待进去通道': "1",
+                '1号通道待置区': "1",
+                '2号通道待置区': "1",
+                '3号通道待置区': "1",
+                '1号通道出货区': "1",
+                '2号通道出货区': "1",
+                '3号通道出货区': "1",
+            };
+
+            //飞机箭头
+            var planePath = 'path://M1705.06,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705.06,1318.313z';
+
+            option = {
+                backgroundColor: '#1b1b1b',
+                title: {
+                    text: '',
+                    left: '-5',
+                    top: '10px',
+                    textStyle: {
+                        color: '#ffffff',
+                        fontFamily: '微软雅黑',
+                        fontWeight: 'lighter',
+                        fontSize: 12
+                    }
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: function (o) {
+
+                        return o.name + "：" + o.value[2] + "起";
+                    }
+
+
+                },
+
+                geo: {
+                    map: '',
+                    label: {
+                        emphasis: {
+                            show: false
+                        }
+                    },
+                    roam: true,
+                    itemStyle: {
+                        normal: {
+                            color: 'rgba(22,22,2,0)',
+                            areaColor: 'rgba(22,22,2,0)',
+                            borderColor: 'rgba(22,22,2,0)'
+
+                        },
+                        emphasis: {
+
+                            color: 'rgba(22,22,2,0)',
+                            areaColor: 'rgba(22,22,2,0)',
+                            borderColor: 'rgba(22,22,2,0)'
+                        }
+                    }
+                },
+                series: [
+                    // {
+                    //动态连接指示线
+                    //     type: 'lines',
+                    //     zlevel: 1,
+                    //     effect: {
+                    //         show: true,
+                    //         period: 3,
+                    //         trailLength: 0.1,
+                    //         color: '#A6C84C',
+                    //         symbolSize: 8
+                    //     },
+                    //     lineStyle: {
+                    //         normal: {
+                    //             color: '#a6c84c',
+                    //             width: 0,
+                    //             curveness: 0.2
+                    //         }
+                    //     },
+                    //     data: [{
+
+                    //         coords: [geoCoordMap['出口'], geoCoordMap['等待进入电梯']]
+                    //     }, {
+
+                    //         coords: [geoCoordMap['入口'], geoCoordMap['等待进入电梯']]
+                    //     }, {
+
+                    //         coords: [geoCoordMap['等待进入电梯'], geoCoordMap['等待进去通道']]
+                    //     }, {
+
+                    //         coords: [geoCoordMap['等待进去通道'], geoCoordMap['1号通道待置区']]
+                    //     }, {
+
+                    //         coords: [geoCoordMap['1号通道待置区'], geoCoordMap['2号通道待置区']]
+                    //     }, {
+
+                    //         coords: [geoCoordMap['2号通道待置区'], geoCoordMap['3号通道待置区']]
+                    //     }, {
+
+                    //         coords: [geoCoordMap['1号通道待置区'], geoCoordMap['1号通道出货区']]
+                    //     }, {
+
+                    //         coords: [geoCoordMap['2号通道待置区'], geoCoordMap['2号通道出货区']]
+                    //     }, {
+
+                    //         coords: [geoCoordMap['3号通道待置区'], geoCoordMap['3号通道出货区']]
+                    //     }]
+                    // }, 
+                    {
+                        //静态连接线
+                        type: 'lines',
+                        zlevel: 2,
+                        effect: {
+                            show: true,
+                            //滑动速度
+                            period: 2,
+                            trailLength: 0,
+                            //symbol: 'image://',
+                            //引用飞机
+                            symbol: planePath,
+                            symbolSize: 15
+                        },
+                        lineStyle: {
+                            normal: {
+                                color: '#a6c84c',
+                                width: 2,
+                                opacity: 0.4,
+                                curveness: 0
+                            }
+                        },
+                        data: [{
+
+                            coords: [geoCoordMap['出口'], geoCoordMap['等待进入电梯']]
+                        }, {
+
+                            coords: [geoCoordMap['入口'], geoCoordMap['等待进入电梯']]
+                        }, {
+
+                            coords: [geoCoordMap['等待进入电梯'], geoCoordMap['等待进去通道']]
+                        }, {
+
+                            coords: [geoCoordMap['等待进去通道'], geoCoordMap['1号通道待置区']]
+                        }, {
+
+                            coords: [geoCoordMap['1号通道待置区'], geoCoordMap['2号通道待置区']]
+                        }, {
+
+                            coords: [geoCoordMap['2号通道待置区'], geoCoordMap['3号通道待置区']]
+                        }, {
+
+                            coords: [geoCoordMap['1号通道待置区'], geoCoordMap['1号通道出货区']]
+                        }, {
+
+                            coords: [geoCoordMap['2号通道待置区'], geoCoordMap['2号通道出货区']]
+                        }, {
+
+                            coords: [geoCoordMap['3号通道待置区'], geoCoordMap['3号通道出货区']]
+                        }]
+                    }, {
+
+                        type: 'effectScatter',
+                        coordinateSystem: 'geo',
+                        zlevel: 2,
+                        rippleEffect: {
+                            //闪动速度
+                            period: 4,
+                            scale: 2.5,
+                            brushType: 'stroke'
+                        },
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'right',
+                                formatter: '{b}'
+                            }
+                        },
+
+                        symbolSize: '25',
+                        itemStyle: {
+                            normal: {
+                                color: '#0D6695',
+                            }
+                        },
+                        data: [{
+                            name: '出口',
+                            value: geoCoordMap['出口'].concat(data.出口),
+
+                            // symbol: 'image:'+weixin
+                        }, {
+                            name: '入口',
+                            value: geoCoordMap['入口'].concat(data.入口),
+
+
+                        }, {
+                            name: '等待进入电梯',
+                            value: geoCoordMap['等待进入电梯'].concat(data.等待进入电梯),
+
+
+                        }, {
+                            name: '等待进去通道',
+                            value: geoCoordMap['等待进去通道'].concat(data.等待进去通道),
+
+
+                        }, {
+                            name: '1号通道待置区',
+                            value: geoCoordMap['1号通道待置区'].concat(`data.1号通道待置区`),
+
+
+                        }, {
+                            name: '2号通道待置区',
+                            value: geoCoordMap['2号通道待置区'].concat(`data.2号通道待置区`),
+
+
+                        }, {
+                            name: '3号通道待置区',
+                            value: geoCoordMap['3号通道待置区'].concat(`data.3号通道待置区`),
+
+
+                        }, {
+                            name: '1号通道出货区',
+                            value: geoCoordMap['1号通道出货区'].concat(`data.1号通道出货区`),
+
+
+                        }, {
+                            name: '2号通道出货区',
+                            value: geoCoordMap['2号通道出货区'].concat(`data.2号通道出货区`),
+
+
+                        }, {
+                            name: '3号通道出货区',
+                            value: geoCoordMap['3号通道出货区'].concat(`data.3号通道出货区`),
+
+
+                        },
+                        ]
+                    }]
+            };
+
+
+            myChart.setOption(option);
+
+            // var currentIndex = -1;
+            // var timeTicket = setInterval(function () {
+            //     var dataLen = option.series[2].data.length;
+
+            //     currentIndex = (currentIndex + 1) % dataLen;
+
+            //     // 显示 tooltip
+            //     myChart.dispatchAction({
+            //         type: 'showTip',
+            //         seriesIndex: 2,
+            //         dataIndex: currentIndex
+            //     });
+            // }, 1000);
+
+        });
+    </script>
+</body>
+
+</html>

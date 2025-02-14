@@ -1,0 +1,45 @@
+{
+    "results": "TRUE",
+    "resultsinfo": "操作成功",
+    "usedshelfCount": "3",
+    "jsondata": [{
+        "shelfId": "SH00001",
+        "shelfName": "普通正常库位【1-1】1-1",
+        "boxId": "BO00001",
+        "boxName": "4号箱子",
+        "materialId": "MA1001",
+        "materialName": "螺杆",
+        "isFire":  1,
+        "shelfStatus": "LOCK",
+        "hang": "01",
+        "lie": "01",
+        "pai": "01",
+        "InDateTime": "2021-11-12T13:55:09"
+    }, {
+        "shelfId": "SH00001",
+        "shelfName": "普通正常库位【1-1】1-1",
+        "boxId": "BO00002",
+        "boxName": "4号箱子",
+        "materialId": "MA1002",
+        "materialName": "螺杆",
+        "isFire":  1,
+        "shelfStatus": "LOCK",
+        "hang": "01",
+        "lie": "02",
+        "pai": "01",
+        "InDateTime": "2021-11-12T13:55:09"
+    }, {
+        "shelfId": "SH00001",
+        "shelfName": "普通正常库位【1-1】1-1",
+        "boxId": "BO00003",
+        "boxName": "4号箱子",
+        "materialId": "MA1003",
+        "materialName": "螺杆",
+        "isFire":  1,
+        "shelfStatus": "LOCK",
+        "hang": "01",
+        "lie": "03",
+        "pai": "01",
+        "InDateTime": "2021-11-12T13:55:09"
+    }]
+}

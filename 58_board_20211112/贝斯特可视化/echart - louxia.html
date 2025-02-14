@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>可视化</title>
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <link rel="stylesheet" href="css/best.css">
+    <!-- <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="css/demo.css" /> -->
+
+    <!--必要样式-->
+    <!-- <link rel="stylesheet" type="text/css" href="css/component.css" />   -->
+    <!-- <link rel="stylesheet" type="text/css" href="css/crowd.css"> -->
+</head>
+
+<body>
+    <!-- 模态框 -->
+    <div id="mask"></div>
+
+    <div id="load">
+        <div class="loader">出库指令下发中...</div>
+    </div>
+    <!-- 分界线 -->
+
+    <!-- 确认框 -->
+    <div id="login">
+        <div class="modal-header">
+            <span class="xx" id="close_login">×</span>
+            <h4 class="tsk">出库操作提示框</h4>
+        </div>
+        <div class="modal-body">
+            <table class="detail-no_1" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button type="button" onclick="setOut()" class="btn">确认出库</button>
+            <button type="button" onclick="closeLogin()" class="btn btn-qx">取消出库</button>
+        </div>
+    </div>
+
+    <!-- <header>
+        <div class="bg">
+            <canvas id="display"></canvas>
+        </div>
+    </header> -->
+    <!-- 内容 -->
+    <div class="swiper-container container demo-1">
+        <div class="ws-header">
+            <span><img class="img_1" src="image/logo.png"></span>
+            <span class="bt">库存数据可视化</span>
+            <span class="time"></span>
+        </div>
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="td_1">
+                    <div class="JT_1">
+                        <span class="ee">
+                            通道指示牌
+                        </span>
+                    </div>
+                    <div class="kk">
+                        <!-- <div class="GP"> -->
+                        <!-- <button class="ck_1" onclick="tck(1)">出库</button> -->
+                        <!-- </div> -->
+                        <span class="tddd">通道1</span>
+                        <span class="arrowRight"></span>
+                    </div>
+
+                    <div class="JT"></div>
+                    <div class="kk">
+                        <!-- <button class="ck_2" onclick="tck(2)">出库</button> -->
+                        <span class="tddd">通道2</span>
+                        <span class="arrowRight"></span>
+                    </div>
+
+                    <div class="JT">
+                        <!-- <img src="image/logo.png" alt="" style="display: inline-block;
+                        height: 14px;"> -->
+                    </div>
+                    <div class="kk">
+                        <!-- <button class="ck_3" onclick="tck(3)">出库</button> -->
+                        <span class="tddd">通道3</span>
+                        <span class="arrowRight"></span>
+                    </div>
+                    <div class="JT">
+                        <img src="image/best_2.png" alt="">
+                    </div>
+                </div>
+                <div class="sz">
+
+                    <!-- td的border与table的边缘之间有10个像素的补丁(cellspacing),td的border与td的内元素有20个像素的补丁(cellpadding). -->
+                    <table cellspacing="10px" cellpadding="0">
+                        <!-- <caption class="BT">通道数据可视化</caption> -->
+                        <thead>
+                            <tr>
+                                <th>12</th>
+                                <th>11</th>
+                                <th>10</th>
+                                <th>9</th>
+                                <th>8</th>
+                                <th>7</th>
+                                <th>6</th>
+                                <th>5</th>
+                                <th>4</th>
+                                <th>3</th>
+                                <th>2</th>
+                                <th>1</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- 通道1 -->
+                            <tr>
+                                <!-- style="    background-color: rgb(97, 197, 84);" -->
+                                <td class="00120001">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00120001
+                                        </div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="00110001">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00110001
+                                        </div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                </td>
+                                <td class="00100001">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00100001
+                                        </div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="00090001">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00090001</div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="00080001">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00080001</div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="00070001">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00070001</div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="00060001">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00060001</div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody>
+
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="00050001">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00050001</div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody>
+
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="00040001">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00040001</div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody>
+
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="00030001">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00030001</div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody>
+
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="00020001">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00020001</div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody>
+
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="00010001">
+                                    <div class="tdw_1">
+
+                                        <div class="tdw_2">00010001</div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>物料号:</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>83001000220</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>数量:</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>1200.00</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                    <td colspan="12" class="product">
+                                            <div class="product-hover"></div>
+                                    </td>
+                            </tr>
+                            <!-- 通道2 -->
+                            <tr>
+                                <td class="00120002">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00120002
+                                        </div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                </td>
+                                <td class="00110002">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00110002
+                                        </div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                </td>
+                                <td class="00100002">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00100002
+                                        </div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                </td>
+                                <td class="00090002">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00090002
+                                        </div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                </td>
+                                <td class="00080002">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00080002</div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="00070002">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00070002</div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody>
+
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="00060002">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00060002</div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody>
+
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="00050002">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00050002</div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody>
+
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="00040002">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00040002</div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="00030002">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00030002</div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody>
+
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="00020002">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00020002</div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="00010002">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00010002</div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="12" class="product">
+                                        <div class="product-hover"></div>
+                                </td>
+                            </tr>
+                            <!-- 通道3 -->
+                            <tr>
+                                <td class="00120003">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00120003</div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                </td>
+                                <td class="00110003">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00110003</div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                </td>
+                                <td class="00100003">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00100003</div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                </td>
+                                <td class="00090003">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00090003</div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                </td>
+                                <td class="00080003">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00080003</div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody>
+
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="00070006">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00070003</div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody>
+
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="00060003">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00060003</div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody>
+
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="00050003">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00050003</div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody>
+
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="00040003">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00040003</div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="00030003">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00030003</div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody>
+
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="00020003">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00020003</div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="00010003">
+                                    <div class="tdw_1">
+                                        <div class="tdw_2">00010003</div>
+                                        <div class="detail-1">
+                                            <table class="detail-no" id="DDD" cellpadding="0" cellspacing="0">
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+            <!-- <div class="swiper-slide">
+                <div id="container" style="height: 100%"></div>
+            </div> -->
+        </div>
+    </div>
+
+</body>
+<script src="js/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="js/echarts.min.js"></script>
+<script src="js/swiper.min.js"></script>
+<script src="js/http.js"></script>
+<script src="js/best.js"></script>
+<!-- <script type="text/javascript" src="js/constellation.js"></script> -->
+<script>
+
+
+
+
+</script>
+
+</html>
