@@ -382,8 +382,8 @@ header .showTime {
     width: 102%;
     position: inherit;
     background: #637597;
-    height: 0.8rem;
-    /* line-height: 0.8rem; */
+    height: 2.8rem;
+    line-height: 0.8rem;
     top: 0.859rem;
     left: -0.002rem;
     font-size: 0.1rem;

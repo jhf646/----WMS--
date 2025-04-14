@@ -32,7 +32,7 @@
                 导入</button>
 
 
-           
+
             </br>
             </br>
             length : <label id="length"> </label>
@@ -114,7 +114,7 @@
                 success: function (result) {
                     if (result.code == "200") {
                         $("#xinx").html(result.BomID + '上传成功！');
-                    }  else {
+                    } else {
                         $("#xinx").html('上传失败！');
                     }
                 }
@@ -135,7 +135,8 @@
                     });
                     workbook.SheetNames.forEach(function (sheetName) {
                         var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
-                        if (XL_row_object.length > 0 && sheetName == "RD") {
+                        // if (XL_row_object.length > 0 && sheetName == "RD") {
+                        if (XL_row_object.length > 0 ) {
                             let arr = []
 
                             for (var i = 0; i < XL_row_object.length; i++) {
@@ -143,7 +144,14 @@
                                 filename = filename.split("\\")
                                 filename = filename[filename.length - 1]
                                 filename = filename.split(".")[0]
-                                XL_row_object[i]["bomID"] = filename;
+        //                         "BomNo": "BOM02",
+        // "ItemNo": "M02",
+        // "ItemBomQty": 33,
+        // "Remark": null
+                                XL_row_object[i]["BomNo"] = sheetName;
+                                XL_row_object[i]["ItemNo"] = XL_row_object[i].BOCHILD;
+                                XL_row_object[i]["ItemBomQty"] = XL_row_object[i].BOQTY;
+                                XL_row_object[i]["Remark"] = "";
                             }
 
 

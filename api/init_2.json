@@ -47,6 +47,19 @@
                         "target": "_self"
                     }]
                 }
+                ,{
+                    "title": "电子看板",
+                    "href": "",
+                     "icon": "fa fa-database"
+                    , "target": "_self"
+
+                    ,"child": [{
+                    "title": "标签看板",
+                    "href": "58_board_20211112/index.html",
+                    "icon": "fa fa-line-chart",
+                    "target": "_blank"
+                }]
+                }
             ]
         },
    
