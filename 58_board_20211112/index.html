@@ -374,13 +374,13 @@
                     const layerIndicator = parts[2];
 
 
-                    let datag = can.data[i].ItemQty > can.data[i].SafeQty ? "#15ff5d" : can.data[i].ItemQty === can.data[i].SafeQty ? "#d7d11a" : "#e45c5c";
+                    let datag = can.data[i].ItemQty==0?"#637597" :can.data[i].ItemQty > can.data[i].SafeQty ? "#0bd74a" : can.data[i].ItemQty === can.data[i].SafeQty ? "#cdbf15" : "#e45c5c";
 
                     let zj = `<td class="${can.data[i].RackID} td-container">
                                         
                                             <div class="box_sz" style="background-color: ${datag};">
                                                 
-           <div class="data">轴承: ${can.data[i].ItemNo}<br>数量: ${can.data[i].ItemQty}</div>
+           <div class="data">${can.data[i].ItemNo}<br>数量: ${can.data[i].ItemQty}</div>
             <div class="location">      ${can.data[i].RackID}</div>
                                        
                                             </div>
