@@ -374,7 +374,7 @@
                     const layerIndicator = parts[2];
 
 
-                    let datag = can.data[i].ItemQty==0?"#637597" :can.data[i].ItemQty > can.data[i].SafeQty ? "#0bd74a" : can.data[i].ItemQty === can.data[i].SafeQty ? "#cdbf15" : "#e45c5c";
+                    let datag = can.data[i].ItemNo==""?"#637597" :can.data[i].ItemQty > can.data[i].SafeQty ? "#0bd74a" : can.data[i].ItemQty === can.data[i].SafeQty ? "#cdbf15" : "#e45c5c";
 
                     let zj = `<td class="${can.data[i].RackID} td-container">
                                         
