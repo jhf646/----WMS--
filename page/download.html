@@ -173,6 +173,9 @@
                                 // $("#SJ").html(html1)
                                 // Expor(BomNo)
                                 json2Excel(res.data,BomNo)
+
+                                obj.del();
+                                layer.close(index);
                                 // var sheet = XLSX.utils.aoa_to_sheet(res.data);
                                 // openDownloadDialog(sheet2blob(sheet), 'device-user-table.xlsx');
                             },
