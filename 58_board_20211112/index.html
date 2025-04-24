@@ -133,19 +133,54 @@
         .location {
             font-weight: bold;
             font-size: 0.2rem;
-            color: #ffffff;
+            color: #000000;
+        }
+
+        header {
+            position: relative;
+            /* height: 4rem; */
+            /* background: url(../images/atlas.jfif) no-repeat top center;
+            background-size: 100% 100%; */
+        }
+
+        header h1 {
+            font-size: 0.5rem;
+            font-weight: bold;
+            background: linear-gradient(to left, #3bff31, #14ebff, #99adeb);
+            -webkit-background-clip: text;
+            color: transparent;
+            text-align: center;
+            line-height: 0.7rem;
+            padding-top: 0.3rem;
+        }
+
+        header .showTime {
+            position: absolute;
+            top: 0;
+            left: 0.875rem;
+            /* line-height: 2.4375rem; */
+            font-size: 0.35rem;
+            /* color: rgba(255, 255, 255, 0.7); */
+            font-weight: bold;
+            background: linear-gradient(to left, #3bff31, #14ebff, #99adeb);
+            -webkit-background-clip: text;
+            color: transparent;
         }
     </style>
     </style>
 </head>
 
 <body>
-    <!-- 当前排 -->
-    <span class="pai" style="opacity: 0;">02</span>
+
     <header>
-        <p class="bt">阿 特 拉 斯 O I S 标 签 看 板</p>
-        <div class="showTime">当前时间：<span></span></div>
+        <h1>
+            <ruby>
+                Atlas OIS Tag Dashboard <rt> 阿 特 拉 斯 O I S 标 签 看 板 </rt>
+            </ruby>
+        </h1>
+        <div class="showTime">时间(Time)：<span></span></div>
     </header>
+
     <section class="mainbox">
 
         <div class="column">
@@ -163,10 +198,15 @@
                 </div>
                 <div class="no-bd">
                     <ul>
-                        <li>库存总数量</li>
-                        <li>绿色安全数量</li>
-                        <li>黄色警戒数量</li>
-                        <li>红色危险数量</li>
+                        <li>
+                            <!-- <ruby>
+                                Total Quantity<rt>库存总数量</rt>
+                            </ruby> -->
+                            总数量(Total Quantity)
+                        </li>
+                        <li>安全数量(Safe Quantity)</li>
+                        <li>警戒数量(Warning Quantity)</li>
+                        <li>危险数量(Danger Quantity)</li>
                     </ul>
                 </div>
             </div>
@@ -300,7 +340,7 @@
             el: ".swiper-pagination",
             clickable: true,
             renderBullet: function (index, className) {
-                return '<span class="' + className + '">' + (kw[index]) + '号货架</span>';
+                return '<span class="' + className + '">' + (kw[index]) + '/Shelf</span>';
             }
         },
         navigation: {
@@ -311,25 +351,44 @@
     });
 
 
+    // (function (fn) {
+    //     fn();
+    //     setInterval(fn, 1000);
+    // })(function () {
+    //     var dt = new Date();
+    //     console.log(dt.getMonth())
+    //     document.querySelector(".showTime span").innerHTML =
+    //         dt.getFullYear() + "年" +
+    //         (dt.getMonth() + 1) + "月" +
+    //         dt.getDate() + "日-" +
+    //         dt.getHours() + "时" +
+    //         dt.getMinutes() + "分" +
+    //         dt.getSeconds() + "秒";
+    // });
+
+
+
     (function (fn) {
+
         fn();
+
         setInterval(fn, 1000);
     })(function () {
+
         var dt = new Date();
         console.log(dt.getMonth())
         document.querySelector(".showTime span").innerHTML =
-            dt.getFullYear() + "年" +
-            (dt.getMonth() + 1) + "月" +
-            dt.getDate() + "日-" +
-            dt.getHours() + "时" +
-            dt.getMinutes() + "分" +
-            dt.getSeconds() + "秒";
+            dt.getFullYear() + "/" +
+            dt.getMonth() + "/" +
+            dt.getDate() + " " +
+            dt.getHours() + ":" +
+            PrefixInteger(dt.getMinutes(), 2) + "";
+        // // dt.getSeconds() + "秒";
     });
-
-
-
     // external js: isotope.pkgd.js
-
+    function PrefixInteger(num, n) {
+        return (Array(n).join(0) + num).slice(-n);
+    }
     cx(kw[0], 0)
 
 
@@ -373,14 +432,16 @@
 
                     const layerIndicator = parts[2];
 
-
-                    let datag = can.data[i].ItemNo==""?"#637597" :can.data[i].ItemQty > can.data[i].SafeQty ? "#0bd74a" : can.data[i].ItemQty === can.data[i].SafeQty ? "#cdbf15" : "#e45c5c";
+                    // <li id="RackSafeCount" style="color: #00ff14;"></li>
+                    //     <li id="RackWarningCount" style="color: #ffc800;"></li>
+                    //     <li id="RackDangerCount" style="color: #ff2300;"></li>
+                    let datag = can.data[i].ItemNo == "" ? "#cdcccc" : can.data[i].ItemQty > can.data[i].SafeQty ? "#00ff14" : can.data[i].ItemQty === can.data[i].SafeQty ? "#ffc800" : "#ff2300";
 
                     let zj = `<td class="${can.data[i].RackID} td-container">
                                         
                                             <div class="box_sz" style="background-color: ${datag};">
                                                 
-           <div class="data">${can.data[i].ItemNo}<br>数量: ${can.data[i].ItemQty}</div>
+           <div class="data">${can.data[i].ItemNo}<br>数量(Qty): ${can.data[i].ItemQty}</div>
             <div class="location">      ${can.data[i].RackID}</div>
                                        
                                             </div>
@@ -410,16 +471,16 @@
                         //     "EMPTYshelfCount": "320",
                         //     "ONWAYshelfCount": "0",
                         //     "LOCKshelfCount": "0",
-                        if (data.data[i].ItemQty >data.data[i].SafeQty) {
+                        if (data.data[i].ItemQty > data.data[i].SafeQty) {
                             return "#637597";
                         }
-                        if (data.data[i].ItemQty ==data.data[i].SafeQty) {
+                        if (data.data[i].ItemQty == data.data[i].SafeQty) {
                             return "#3eadb9";
                         }
                         if (data.data[i].ItemQty < data.data[i].SafeQty) {
                             return "#e45c5c";
                         }
-                       
+
                     })
 
                 }

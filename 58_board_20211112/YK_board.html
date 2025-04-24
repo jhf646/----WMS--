@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>比益特电子看板</title>
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./fonts/icomoon.css">
+</head>
+
+<body>
+    <header>
+        <h1>
+            <ruby>
+                StereoScopic Data Base <rt> 立 体 库 数 据 监 控 </rt>
+            </ruby>
+        </h1>
+        <div class="showTime">当前时间：<span></span></div>
+    </header>
+    <div class="viewport">
+        <div class="column">
+            <!--概览-->
+
+
+            <div class="channel panel">
+                <div class="inner">
+                    <h3>库位实时信息</h3>
+                    <div class="data">
+                        <div class="item">
+                            <!--     "totalCount": 150,
+    "usedCount": 9,
+    "freeCount": 141,
+    "flangeCount": 0 -->
+
+                            <h4 id="totalCount">166</h4>
+                            <span>
+                                <i class="icon-dot" style="color: #006cff"></i>
+                                总库位数量
+                            </span>
+                        </div>
+                        <div class="item">
+                            <h4 id="usedCount">15</h4>
+                            <span>
+                                <i class="icon-dot" style="color: #006cff"></i>
+                                已使用库位
+                            </span>
+                        </div>
+                    </div>
+                    <div class="data">
+                        <div class="item">
+                            <h4 id="freeCount">151</h4>
+                            <span>
+                                <i class="icon-cube"></i>
+                                剩余库位数量
+                            </span>
+                        </div>
+                        <div class="item">
+                            <h4 id="flangeCount">13</h4>
+                            <span>
+                                <i class="icon-cube"></i>
+                                库位法兰数
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quarter panel">
+                <div class="inner">
+                    <h3> 今日运行效率</h3>
+                    <div class="chart">
+                        <div class="box">
+                            <div class="gauge"></div>
+                            <div class="label" id="efficiency">50<small> %</small></div>
+                            <!-- <span>
+                                <i class="icon-cube"></i>
+                                使用比例
+                            </span> -->
+                        </div>
+                        <!-- "warehouseInCount": 0,     "warehouseOutCount": 0,     "efficiency": 0 -->
+                        <div class="data rb">
+                            <div class="item">
+                                <h4 id="warehouseInCount">24</h4>
+                                <span>
+                                    <i class="icon-dot" style="color: #6acca3"></i>
+                                    今日入库数量
+                                </span>
+                            </div>
+                            <div class="item">
+                                <h4 id="warehouseOutCount">12</h4>
+                                <span>
+                                    <i class="icon-dot" style="color: #ed3f35"></i>
+                                    今日出库数量
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--监控-->
+            <div class="monitor panel">
+                <div class="inner">
+                    <div class="tabs">
+                        <a href="javascript:;" data-index="0" class="active">实时任务数据</a>
+                        <!-- <a href="javascript:;" data-index="1">异常设备监控</a> -->
+                    </div>
+                    <div class="content" style="display: block;">
+                        <div class="head">
+                            <span class="col">库位</span>
+                            <span class="col">操作类型</span>
+                            <span class="col">物料号</span>
+                            <span class="col">计划单号</span>
+                        </div>
+                        <div class="marquee-view">
+                            <div class="marquee  getRealTimeTask">
+                                <div class="row">
+                                    <span class="col">A002</span>
+                                    <span class="col">出库</span>
+                                    <span class="col">2020-12-01 12:01</span>
+                                    <span class="icon-dot"></span>
+                                </div>
+                                <div class="row">
+                                    <span class="col">A002</span>
+                                    <span class="col">出库</span>
+                                    <span class="col">2020-12-01 12:01</span>
+                                    <span class="icon-dot"></span>
+                                </div>
+                                <div class="row">
+                                    <span class="col">A002</span>
+                                    <span class="col">出库</span>
+                                    <span class="col">2020-12-01 12:01</span>
+                                    <span class="icon-dot"></span>
+                                </div>
+                                <div class="row">
+                                    <span class="col">A002</span>
+                                    <span class="col">出库</span>
+                                    <span class="col">2020-12-01 12:01</span>
+                                    <span class="icon-dot"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="monitor panel">
+                <div class="inner">
+                    <div class="tabs">
+                        <a href="javascript:;" data-index="0" class="active">今日报警数据</a>
+                        <!-- <a href="javascript:;" data-index="1">异常设备监控</a> -->
+                    </div>
+                    <div class="content" style="display: block;">
+                        <div class="head">
+                            <span class="col">报警信息</span>
+                            <span class="col">报警时间</span>
+                        </div>
+                        <div class="marquee-view">
+                            <div class="marquee  GetDailyErrorInfo">
+                                <div class="row">
+                                    <span class="col">A002</span>
+                                    <span class="col">P0118</span>
+                                    <span class="col">2020-12-01 12:01</span>
+                                    <span class="icon-dot"></span>
+                                </div>
+                                <div class="row">
+                                    <span class="col">A001</span>
+                                    <span class="col">P0117</span>
+                                    <span class="col">2020-12-01 12:01</span>
+                                    <span class="icon-dot"></span>
+                                </div>
+                                <div class="row">
+                                    <span class="col">A001</span>
+                                    <span class="col">P0117</span>
+                                    <span class="col">2020-12-01 12:01</span>
+                                    <span class="icon-dot"></span>
+                                </div>
+                                <div class="row">
+                                    <span class="col">A001</span>
+                                    <span class="col">P0117</span>
+                                    <span class="col">2020-12-01 12:01</span>
+                                    <span class="icon-dot"></span>
+                                </div>
+                                <div class="row">
+                                    <span class="col">A001</span>
+                                    <span class="col">P0117</span>
+                                    <span class="col">2020-12-01 12:01</span>
+                                    <span class="icon-dot"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--点位-->
+            <!-- <div class="point panel">
+                <div class="inner">
+                    <h3>库位使用占比</h3>
+                    <div class="chart">
+                        <div class="pie"></div>
+                        <div class="data">
+                            <div class="item">
+                                <h4>320,11</h4>
+                                <span>
+                                    <i class="icon-dot" style="color: #ed3f35"></i>
+                                    点位总数
+                                </span>
+                            </div>
+                            <div class="item">
+                                <h4>418</h4>
+                                <span>
+                                    <i class="icon-dot" style="color: #eacf19"></i>
+                                    本月新增
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+        <div class="column">
+
+        </div>
+        <div class="column">
+            <!-- 订单 -->
+            <!-- <div class="order panel">
+                <div class="inner">
+                
+                    <div class="filter">
+                        <a href="javascript:;" data-key="day365" class="active">365天</a>
+                        <a href="javascript:;" data-key="day90">90天</a>
+                        <a href="javascript:;" data-key="day30">30天</a>
+                        <a href="javascript:;" data-key="day1">24小时</a>
+                    </div>
+         
+                    <div class="data">
+                        <div class="item">
+                            <h4>20,301,987</h4>
+                            <span>
+                                <i class="icon-dot" style="color: #ed3f35;"></i>
+                                订单量
+                            </span>
+                        </div>
+                        <div class="item">
+                            <h4>99834</h4>
+                            <span>
+                                <i class="icon-dot" style="color: #eacf19;"></i>
+                                系统
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <!-- 系统 -->
+            <!-- <div class="sales panel">
+                <div class="inner">
+                    <div class="caption">
+                        <h3>系统统计</h3>
+                        <a href="javascript:;" class="active" data-type="year">年</a>
+                        <a href="javascript:;" data-type="quarter">季</a>
+                        <a href="javascript:;" data-type="month">月</a>
+                        <a href="javascript:;" data-type="week">周</a>
+                    </div>
+                    <div class="chart">
+                        <div class="label">单位:个数</div>
+                        <div class="line"></div>
+                    </div>
+                </div>
+            </div> -->
+            <!-- 渠道 季度 -->
+            <div class="wrap">
+
+                <!-- 曲线 -->
+
+                <div class="sales sales_1 panel">
+                    <div class="inner">
+                        <div class="caption">
+                            <h3>系统出入库数</h3>
+                            <a href="javascript:;" class="active" data-type="year">年</a>
+                            <!-- <a href="javascript:;" data-type="quarter">季</a>
+                            <a href="javascript:;" data-type="month">月</a>
+                            <a href="javascript:;" data-type="week">周</a> -->
+                        </div>
+                        <div class="chart">
+                            <div class="label">单位:个数</div>
+                            <div class="line"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="users point_1 panel">
+                    <div class="inner">
+                        <h3>近七天物料使用前十</h3>
+                        <div class="chart">
+                            <div class="bar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 排行榜 -->
+            <div class="wrap">
+                <div class="monitor channel_1 panel">
+                    <div class="inner">
+                        <div class="tabs">
+                            <a href="javascript:;" data-index="0" class="active">法兰1-40库存信息监控</a>
+                            <!-- <a href="javascript:;" data-index="1">异常设备监控</a> -->
+                        </div>
+                        <div class="content" style="display: block;">
+                            <div class="head">
+                                <span class="col">库位号</span>
+                                <span class="col">物料编号</span>
+                                <span class="col">流水号</span>
+                            </div>
+                            <div class="marquee-view">
+                                <div class="marquee" id="GetFlangeStockInfo_left">
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000001</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000002</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000003</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000004</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000005</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000006</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000007</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000008</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000009</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000010</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000011</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000012</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000013</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000014</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000015</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000016</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000017</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000018</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000019</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000020</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="monitor quarter_1 panel">
+                    <div class="inner">
+                        <div class="tabs">
+                            <a href="javascript:;" data-index="0" class="active">法兰41-80库存信息监控</a>
+                            <!-- <a href="javascript:;" data-index="1">异常设备监控</a> -->
+                        </div>
+                        <div class="content" style="display: block;">
+                            <div class="head">
+                                <span class="col">库位号</span>
+                                <span class="col">物料编号</span>
+                                <span class="col">流水号</span>
+                            </div>
+                            <div class="marquee-view">
+                                <div class="marquee" id="GetFlangeStockInfo_right">
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000001</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000002</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000003</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000004</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000005</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000006</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000007</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000008</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000009</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000010</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000011</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000012</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000013</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000014</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000015</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000016</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000017</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000018</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000019</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col">A001</span>
+                                        <span class="col">SF120123321</span>
+                                        <span class="col">1000020</span>
+                                        <span class="icon-dot"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--监控-->
+
+
+        </div>
+    </div>
+</body>
+<script src="./js/jquery-2.0.3.min.js"></script>
+<script src="./js/echarts.min.js "></script>
+<script src="./js/http.js"></script>
+<!-- <script src="./js/index.js"></script> -->
+<script>
+    document.write("<s" + "cript type='text/javascript' src='./js/index.js?" + Math.random() + "'></scr" + "ipt>");
+    // document.write("<s" + "cript type='text/javascript' src='./js/CE.js?" + Math.random() + "'></scr" + "ipt>");
+
+
+    (function(fn) {
+
+        fn();
+
+        setInterval(fn, 1000);
+    })(function() {
+
+        var dt = new Date();
+        console.log(dt.getMonth())
+        document.querySelector(".showTime span").innerHTML =
+            dt.getFullYear() + "/" +
+            dt.getMonth() + "/" +
+            dt.getDate() + " " +
+            dt.getHours() + ":" +
+            PrefixInteger(dt.getMinutes(), 2) + "";
+        // // dt.getSeconds() + "秒";
+    });
+
+    function PrefixInteger(num, n) {
+        return (Array(n).join(0) + num).slice(-n);
+    }
+    // f1()
+
+    function f1() {
+        var html = ''
+        var html1 = ''
+        for (var i = 0; i < 41; i++) {
+            html += ` <div class="row" id="A${i}">
+        <span class="col">A${i}</span>
+        <span class="col" id="ItemCode">-</span>
+        <span class="col" id="PlanNumber">-</span>
+        <span class="icon-dot"></span>
+    </div>`
+        }
+
+        $("#GetFlangeStockInfo_left").html("")
+        $("#GetFlangeStockInfo_left").html(html)
+
+        for (var i = 40; i < 81; i++) {
+            html1 += ` <div class="row" id="A${i}">
+        <span class="col">A${i}</span>
+        <span class="col" id="ItemCode">-</span>
+        <span class="col" id="PlanNumber">-</span>
+        <span class="icon-dot"></span>
+    </div>`
+        }
+
+        $("#GetFlangeStockInfo_right").html("")
+        $("#GetFlangeStockInfo_right").html(html1)
+    }
+
+    (function() {
+        //事件委托
+        $('.monitor').on('click', ' a', function() {
+            //点击当前的a 加类名 active  他的兄弟删除类名
+            $(this).addClass('active').siblings().removeClass('active');
+            //获取一一对应的下标 
+            var index = $(this).index();
+            //选取content 然后狗日对应下标的 显示   当前的兄弟.content隐藏
+            $('.content').eq(index).show().siblings('.content').hide();
+        });
+        //滚动
+        //原理：把marquee下面的子盒子都复制一遍 加入到marquee中
+        //      然后动画向上滚动，滚动到一半重新开始滚动
+        //因为选取的是两个marquee  所以要遍历
+        $('.monitor .marquee').each(function(index, dom) {
+            //将每个 的所有子级都复制一遍
+            var rows = $(dom).children().clone();
+            //再将新的到的加入原来的
+            $(dom).append(rows);
+        });
+
+    })();
+    //"00722"
+</script>
+<!-- <script src="./js/china.js"></script> -->
+<!-- <script src="./js/mymap.js"></script> -->
+<!-- <script src="./js/myls.js"></script> -->
+<!-- <script src="./js/Lct.js"></script> -->
+
+</html>
