@@ -3,593 +3,640 @@
 
 <head>
     <meta charset="utf-8">
-    <title>首页二</title>
+    <title>layui</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="../lib/layui-v2.5.5/css/layui.css" media="all">
-    <link rel="stylesheet" href="../lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
     <link rel="stylesheet" href="../css/public.css" media="all">
-    <style>
-        .layui-card {
-            border: 1px solid #f2f2f2;
-            border-radius: 5px;
-        }
-
-        .icon {
-            margin-right: 10px;
-            color: #1aa094;
-        }
-
-        .icon-cray {
-            color: #ffb800 !important;
-        }
-
-        .icon-blue {
-            color: #1e9fff !important;
-        }
-
-        .icon-tip {
-            color: #ff5722 !important;
-        }
-
-        .layuimini-qiuck-module {
-            text-align: center;
-            margin-top: 10px
-        }
-
-        .layuimini-qiuck-module i {
-            display: inline-block;
-            width: 100%;
-            height: 60px;
-            line-height: 60px;
-            text-align: center;
-            border-radius: 2px;
-            font-size: 30px;
-            background-color: #F8F8F8;
-            color: #333;
-            transition: all .3s;
-            -webkit-transition: all .3s;
-            background-repeat: no-repeat;
-            background-size: 100% 60px;
-        }
-
-        .layuimini-qiuck-module cite {
-            position: relative;
-            top: 2px;
-            display: block;
-            color: #666;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: nowrap;
-            font-size: 9px;
-            font-weight: bold;
-        }
-
-        .welcome-module {
-            width: 100%;
-            height: 210px;
-        }
-
-        .panel {
-            background-color: #fff;
-            border: 1px solid transparent;
-            border-radius: 3px;
-            -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
-            box-shadow: 0 1px 1px rgba(0, 0, 0, .05)
-        }
-
-        .panel-body {
-            padding: 10px
-        }
-
-        .panel-title {
-            margin-top: 0;
-            margin-bottom: 0;
-            font-size: 12px;
-            color: inherit
-        }
-
-        .label {
-            display: inline;
-            padding: .2em .6em .3em;
-            font-size: 75%;
-            font-weight: 700;
-            line-height: 1;
-            color: #fff;
-            text-align: center;
-            white-space: nowrap;
-            vertical-align: baseline;
-            border-radius: .25em;
-            margin-top: .3em;
-        }
-
-        .layui-red {
-            color: red
-        }
-
-        .main_btn>p {
-            height: 40px;
-        }
-
-        .layui-bg-number {
-            background-color: #F8F8F8;
-        }
-
-        .layuimini-notice:hover {
-            background: #f6f6f6;
-        }
-
-        .layuimini-notice {
-            padding: 7px 16px;
-            clear: both;
-            font-size: 12px !important;
-            cursor: pointer;
-            position: relative;
-            transition: background 0.2s ease-in-out;
-        }
-
-        .layuimini-notice-title,
-        .layuimini-notice-label {
-            padding-right: 70px !important;
-            text-overflow: ellipsis !important;
-            overflow: hidden !important;
-            white-space: nowrap !important;
-        }
-
-        .layuimini-notice-title {
-            line-height: 28px;
-            font-size: 14px;
-        }
-
-        .layuimini-notice-extra {
-            position: absolute;
-            top: 50%;
-            margin-top: -8px;
-            right: 16px;
-            display: inline-block;
-            height: 16px;
-            color: #999;
-        }
-
-        .btn-sz {
-            position: absolute;
-            right: 15px;
-            /* color: #01AAED; */
-        }
-
-        #GD {
-            position: absolute;
-            top: 46%;
-            width: 76%;
-            left: 115px;
-        }
-
-        #ROB {
-            height: 110px;
-            width: 8%;
-            position: absolute;
-            top: 34%;
-            /* left: 115px;
-    margin-left: 1px; */
-        }
-
-        .MC {
-            width: 100px;
-            height: 100px;
-        }
-
-        .KW1 {
-            height: 170px;
-        }
-
-        .KW2 {
-            width: 79%;
-            margin-top: 20px;
-            /* margin-left: 100px; */
-        }
-
-        .pz3 {
-            /* margin-left: 100px */
-        }
-
-        .SPT {
-            display: inline-block;
-            width: 12%;
-            font-size: 2em;
-        }
-
-        .pz2,
-        .pz3,
-        .pz4 {
-            display: inline-block;
-        }
-
-        .pz2 {
-            width: 12%;
-            display: inline-block;
-        }
-
-        #LU1 {
-            position: absolute;
-            left: 756px;
-            top: 37%;
-            width: 85px;
-            height: 101px;
-        }
-
-        .jj1 {
-            position: absolute;
-            top: 56px;
-            left: 135px;
-            width: 6.5%;
-        }
-
-        .jj2 {
-            position: absolute;
-            top: 56px;
-            left: 318px;
-            width: 6.5%;
-        }
-
-        .jj3 {
-            position: absolute;
-            top: 56px;
-            left: 561px;
-            width: 6.5%;
-        }
-
-        #ztt {
-            position: absolute;
-            right: 150px;
-        }
-
-        #ztnr {
-            color: #1985b8;
-            font-weight: bold;
-            display: inline-block;
-        }
-
-        .LU2 {
-            position: absolute;
-            left: 756px;
-            top: 64%;
-            width: 85px;
-            height: 101px;
-        }
-
-        #text1 {
-            position: absolute;
-            left: 34px;
-            top: -37%;
-            /* width: 85px; */
-            /* height: 101px; */
-            transform: rotate(90deg);
-            transform: rotate(90deg);
-        }
-
-        #text2 {
-            position: absolute;
-            left: 34px;
-            top: 89%;
-            /* width: 85px; */
-            /* height: 101px; */
-            transform: rotate(90deg);
-            transform: rotate(90deg);
-        }
-
-        .layui-form-mid1 {
-            /* float: left; */
-            display: inline-block;
-            line-height: 20px;
-            margin-right: 10px;
-            padding: 9px 0px !important;
-        }
-
-        #ann>div:nth-child(1) i {
-            background-image: url(../images/24_1.svg);
-            background-repeat: no-repeat;
-            background-position: 50% 50%;
-        }
-
-        #ann>div:nth-child(2) i {
-            background-image: url(../images/lx_1.svg);
-            background-repeat: no-repeat;
-            background-position: 50% 50%;
-        }
-
-        #ann>div:nth-child(3) i {
-            background-image: url(../images/stop.svg);
-            background-repeat: no-repeat;
-            background-position: 50% 50%;
-        }
-
-        #ann>div:nth-child(4) i {
-            background-image: url(../images/24_2.svg);
-            background-repeat: no-repeat;
-            background-position: 50% 50%;
-        }
-
-        #ann>div:nth-child(5) i {
-            background-image: url(../images/lx_2.svg);
-            background-repeat: no-repeat;
-            background-position: 50% 50%;
-        }
-
-        #ann>div:nth-child(6) i {
-            background-image: url(../images/stop.svg);
-            background-repeat: no-repeat;
-            background-position: 50% 50%;
-        }
-
-        #ann>div:nth-child(7) i {
-            background-image: url(../images/24_3.svg);
-            background-repeat: no-repeat;
-            background-position: 50% 50%;
-        }
-
-        #ann>div:nth-child(8) i {
-            background-image: url(../images/lx_3.svg);
-            background-repeat: no-repeat;
-            background-position: 50% 50%;
-        }
-
-        #ann>div:nth-child(9) i {
-            background-image: url(../images/stop.svg);
-            background-repeat: no-repeat;
-            background-position: 50% 50%;
-        }
-        .layui-bg-number:hover {
-            background: #73d5ee;
-        }
-    </style>
 </head>
+<style>
+    #CCS1 div {
+        margin-bottom: 10px;
+    }
+
+    #permissionID option {
+        color: #000;
+    }
+</style>
 
 <body>
     <div class="layuimini-container">
         <div class="layuimini-main">
-            <div class="layui-row layui-col-space15">
-                <div class="layui-col-md8">
-                    <div class="layui-row layui-col-space15">
 
-                        <div class="layui-col-md12">
-                            <div class="layui-card">
-                                <div class="layui-card-header">
-                                    <i class="fa fa-line-chart icon"></i>
-                                    <!-- 德慧DFMS智能制造系统 -->
-                                    工件列表
-                                    <!-- <span id="ztt">ROB状态: <span id="ztnr"></span></span> -->
-                                    <button data-method="setTop" class="layui-btn btn-sz cc_pointer">工件设定</button>
+            <fieldset class="table-search-fieldset">
+                <legend>搜索信息</legend>
+                <div style="margin: 10px 10px 10px 10px">
+                    <form class="layui-form layui-form-pane" action="">
+                        <div class="layui-form-item">
+                            <!-- "DateFrom": "2025-01-11 09:09:39",
+                            "DateTo": "2025-02-11 09:09:39",
+                            "RackNo": "P1", //区域编号  P1- P3     P4-P5
+                            "RackArea": "OSI", //库区    OIS  和ZH 
+                            "JobType": "成套取料", //任务类型  成套取料/补料  单件取料/补料 单件盘点
+                            "ItemNo": "66880002",
+                            "JobStatus": "已经核销" // 已经取消   等待核销  已经核销 -->
+                            <div class="layui-inline">
+                                <label class="layui-form-label">日期选择</label>
+
+                                <div class="layui-input-inline">
+                                    <input type="text" name="date" autocomplete="off" id="date" class="layui-input"
+                                        placeholder="开始日期">
                                 </div>
-                                <div class="layui-card-body">
-                                    <div id="echarts-records" style="width: 100%;">
-                                        <div id="Pallet" class="layui-row layui-col-space10">
-                                            <!-- 无托盘 -->
-                                        </div>
-                                    </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">区域编号</label>
+                                <div class="layui-input-inline">
+                                    <select name="RackNo">
+                                        <option value="" selected="">全选</option>
+                                        <option value="P1">P1</option>
+                                        <option value="P2">P2</option>
+                                        <option value="P3">P3</option>
+                                        <option value="P4">P4</option>
+                                        <option value="P5">P5</option>
+                                    </select>
                                 </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">库区</label>
+                                <div class="layui-input-inline">
+                                    <select name="RackArea">
+                                        <!-- <option value="" selected="">全选</option> -->
+                                        <option value="OIS" selected="">OIS</option>
+                                        <option value="ZH">ZH</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">任务类型</label>
+                                <div class="layui-input-inline">
+                                    <select name="JobType">
+                                        <option value="" selected="">全选</option>
+                                        <option value="成套取料">成套取料</option>
+                                        <option value="成套补料">成套补料</option>
+                                        <option value="单件取料">单件取料</option>
+                                        <option value="单件补料">单件补料</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">物料编号</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="ItemNo" autocomplete="off" class="layui-input"
+                                        placeholder="物料编号">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">任务状态</label>
+                                <div class="layui-input-inline">
+                                    <select name="JobStatus">
+                                        <option value="" selected="">全选</option>
+                                        <option value="已经取消">已经取消</option>
+                                        <option value="等待核销">等待核销</option>
+                                        <option value="已经核销">已经核销</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <button type="submit" class="layui-btn layui-btn-primary" lay-submit
+                                    lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
+            </fieldset>
 
-                <div class="layui-col-md4">
-                    <div class="layui-row layui-col-space15">
-                        <div class="layui-col-md12">
-                            <div class="layui-card">
-                                <div class="layui-card-header"><i class="fa fa-fire icon cc_cursor"></i>工件统计</div>
-                                <div class="layui-card-body" style="width: 100%;">
 
-                                    <div id="echarts-pies"
-                                        style="background-color:#ffffff;min-height:200px;padding: 10px"></div>
 
-                                </div>
-                            </div>
-                            <div class="layui-card">
-                                <div class="layui-card-header"><i class="fa fa-fire icon"></i>工件信息</div>
-                                <div class="layui-card-body layui-text">
-                                    <table class="layui-table">
-                                        <colgroup>
-                                            <col width="100">
-                                            <col>
-                                        </colgroup>
-                                        <tbody>
-                                            <tr>
-                                                <td>工件名称</td>
-                                                <td>
-                                                    精密
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>工件工序</td>
-                                                <td>OP10,OP20,OP30</td>
-                                            </tr>
-                                            <tr>
-                                                <td>工件总数</td>
-                                                <td>10</td>
-                                            </tr>
-                                            <tr>
-                                                <td>工件订单</td>
-                                                <td>
-                                                    1020666622
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>工件使用托盘数</td>
-                                                <td>
-                                                    9
-                                                </td>
-                                            </tr>
+            <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
 
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <script type="text/html" id="currentTableBar">
+                <a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">核销事务</a>
+                <a class="layui-btn layui-btn-xs data-count-delete" lay-event="delete">取消事务</a>
+            </script>
 
-                </div>
-            </div>
         </div>
     </div>
-    </div>
-    <script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
-    <script src="../lib/jquery-3.4.1/jquery-3.4.1.min.js" charset="utf-8"></script>
-    <script src="../js/lay-config.js?v=1.0.4" charset="utf-8"></script>
-    <script src="../js/api/http.js" charset="utf-8"></script>
-    <script>
-        layui.use(['form', 'layer', 'layuimini', 'echarts'], function () {
 
+    <script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="../http.js"></script>
+    <script>
+        layui.use(['layer', 'form', "laydate", 'table'], function () {
             var $ = layui.jquery,
                 layer = layui.layer,
+                laydate = layui.laydate,
                 form = layui.form,
-                layuimini = layui.layuimini,
-                echarts = layui.echarts;
+                table = layui.table;
 
-            var echartsPies = echarts.init(document.getElementById('echarts-pies'), 'walden');
-            var optionPies = {
-                tooltip: {
-                    trigger: 'item',
-                    formatter: '{a} <br/>{b}: {c} ({d}%)'
-                },
-                legend: {
-                    orient: 'vertical',
-                    left: 10,
-                    data: ['完成率', '合格率', '不合格率']
-                },
-                series: [
-                    {
-                        name: '信息',
-                        type: 'pie',
-                        selectedMode: 'single',
-                        radius: [0, '30%'],
 
-                        label: {
-                            position: 'inner'
-                        },
-                        labelLine: {
-                            show: false
-                        },
-                        data: [
-                            { value: 335, name: '完成率', selected: true },
-                            { value: 679, name: '合格率' },
-                            { value: 1548, name: '不合格率' }
-                        ]
-                    },
-                    {
-                        name: '信息',
-                        type: 'pie',
-                        radius: ['40%', '55%'],
-                        label: {
-                            formatter: '{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ',
-                            backgroundColor: '#eee',
-                            borderColor: '#aaa',
-                            borderWidth: 1,
-                            borderRadius: 4,
-                            // shadowBlur:3,
-                            // shadowOffsetX: 2,
-                            // shadowOffsetY: 2,
-                            // shadowColor: '#999',
-                            // padding: [0, 7],
-                            rich: {
-                                a: {
-                                    color: '#999',
-                                    lineHeight: 22,
-                                    align: 'center'
-                                },
-                                // abg: {
-                                //     backgroundColor: '#333',
-                                //     width: '100%',
-                                //     align: 'right',
-                                //     height: 22,
-                                //     borderRadius: [4, 4, 0, 0]
-                                // },
-                                hr: {
-                                    borderColor: '#aaa',
-                                    width: '100%',
-                                    borderWidth: 0.5,
-                                    height: 0
-                                },
-                                b: {
-                                    fontSize: 16,
-                                    lineHeight: 33
-                                },
-                                per: {
-                                    color: '#eee',
-                                    backgroundColor: '#334455',
-                                    padding: [2, 4],
-                                    borderRadius: 2
-                                }
-                            }
-                        },
-                        data: [
-                            { value: 335, name: '完成率' },
-                            { value: 679, name: '合格率' },
-                            { value: 1548, name: '不合格率' }
-                        ]
+
+            function getRecentDay(day) {
+                var today = new Date();
+                var targetday_milliseconds = today.getTime() + 1000 * 60 * 60 * 24 * day;
+                today.setTime(targetday_milliseconds);
+                var tYear = today.getFullYear();
+                var tMonth = today.getMonth();
+                var tDate = today.getDate();
+                var tHours = today.getHours();
+                var tMinutes = today.getMinutes();
+                var tSeconds = today.getSeconds();
+                tMonth = doHandleMonth(tMonth + 1);
+                tDate = doHandleMonth(tDate);
+                tHours = doHandleMonth(tHours);
+                tMinutes = doHandleMonth(tMinutes);
+                tSeconds = doHandleMonth(tSeconds);
+
+                return tYear + "-" + tMonth + "-" + tDate
+            }
+
+            function doHandleMonth(month) {
+                var m = month;
+                if (month.toString().length == 1) {
+                    m = "0" + month;
+                }
+                return m;
+            }
+
+            laydate.render({
+                elem: '#date',
+                type: 'date',
+                range: '~' //或 range: '~' 来自定义分割字符
+                ,
+                value: getRecentDay(-30) + ' ~ ' + getRecentDay(-1),
+                // value: "2021-12-06 ~ 2021-12-31",
+
+            });
+
+
+
+
+            form.verify({
+                title: function (value) {
+                    if (value.length < 5) {
+                        return '标题⾄少得5个字符啊';
                     }
-                ]
-            };
-            echartsPies.setOption(optionPies);
+                }, fname: function (value) {
+                    if (value.length < 4) {
+                        return '请输⼊⾄少4位的⽤户名';
+                    }
+                }, contact: function (value) {
+                    if (value.length < 4) {
+                        return '内容请输⼊⾄少4个字符';
+                    }
+                }
+                , phone: [/^1[3|4|5|7|8]\d{9}$/, '⼿机必须11位，只能是数字！']
+
+                , email: [/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/, '邮箱格式不对']
+                // , email: [/^[a-z0-9._%-]+@([a-z0-9-]+\.)+[a-z]{2,4}/, '邮箱格式不对']
+            });
+            table.render({
+                elem: '#currentTableId',
+                toolbar: '#toolbarDemo',
+                method: "post",
+                contentType: 'application/json,charset=utf-8',
+                // url: '../api/table.json',
+                where: {},
+                url: http1 + "/queryjobinfolist",
+                parseData: function (res) { //res 即为原始返回的数据
+                    return {
+                        "code": 0,
+                        "msg": "",
+                        "count": "",
+                        "data": res.data//解析数据列表
+                    };
+                },
+                defaultToolbar: ['filter', 'exports', 'print', {
+                    title: '提示',
+                    layEvent: 'LAYTABLE_TIPS',
+                    icon: 'layui-icon-tips'
+                }],
+
+                cols: [
+
+                    // {
+                    //     "JobID": "S1000000454",
+                    //     "JobType": "成套取料",
+                    //     "JobStatus": "已经取消",
+                    //     "SubmitPersonName": null,
+                    //     "SubmitPerson": "P0001",
+                    //     "SubmitDate": "2025-02-11 09:09:39",
+                    //     "RackID": "99L01-01-01",
+                    //     "RackArea": "OSI",
+                    //     "EditItemQty": 3,
+                    //     "ItemNo": "66880001",
+                    //     "ItemName": "0",
+                    //     "BomNo": "F100001",
+                    //     "ConfirmPersonName": null,
+                    //     "ConfirmPerson": null,
+                    //     "ConfirmDate": "2025-02-11 09:21:55",
+                    //     "BomJobID": "BJ0010000091",
+                    //     "IsUpload": "FALSE",
+                    //     "RealItemQty": 3,
+                    //     "EditSetQty": 0,
+                    //     "RackNo": "P1",
+                    //     "EditItemQtyFront": 0,
+                    //     "EditItemQtyBack": 0
+                    // },
+
+                    [
+                        {
+                            field: 'JobID',
+                            width: 180,
+                            title: '任务编号',
+                            sort: true
+                        },
+                        {
+                            field: 'JobType',
+                            width: 180,
+                            title: '任务类型',
+                            sort: true
+                        },
+                        {
+                            field: 'JobStatus',
+                            width: 180,
+                            title: '任务状态',
+                            sort: true
+                        }, {
+                            field: 'SubmitPersonName',
+                            width: 180,
+                            title: '提交人姓名',
+                            sort: true
+                        }, {
+                            field: 'SubmitPerson',
+                            width: 180,
+                            title: '提交人编号',
+                            sort: true
+                        }, {
+                            field: 'SubmitDate',
+                            width: 180,
+                            title: '提交时间',
+                            sort: true
+                        }, {
+                            field: 'RackID',
+                            width: 180,
+                            title: '货架编号',
+                            sort: true
+                        }, {
+                            field: 'RackArea',
+                            width: 180,
+                            title: '货架区域',
+                            sort: true
+                        }, {
+                            field: 'EditItemQty',
+                            width: 180,
+                            title: '编辑物料数量',
+                            sort: true
+                        }, {
+                            field: 'ItemNo',
+                            width: 180,
+                            title: '物料编号',
+                            sort: true
+                        }, {
+                            field: 'ItemName',
+                            width: 180,
+                            title: '物料名称',
+                            sort: true
+                        }, {
+                            field: 'BomNo',
+                            width: 180,
+                            title: 'BOM编号',
+                            sort: true
+                        }, {
+                            field: 'ConfirmPersonName',
+                            width: 180,
+                            title: '确认人姓名',
+                            sort: true
+                        }, {
+                            field: 'ConfirmPerson',
+                            width: 180,
+                            title: '确认人编号',
+                            sort: true
+                        }, {
+                            field: 'ConfirmDate',
+                            width: 180,
+                            title: '确认时间',
+                            sort: true
+                        }, {
+                            field: 'BomJobID',
+                            width: 180,
+                            title: 'BOM任务编号',
+                            sort: true
+                        }, {
+                            field: 'IsUpload',
+                            width: 180,
+                            title: '是否上传',
+                            sort: true
+                        }, {
+                            field: 'RealItemQty',
+                            width: 180,
+                            title: '实际物料数量',
+                            sort: true
+                        }, {
+                            field: 'EditSetQty',
+                            width: 180,
+                            title: '编辑成套数量',
+                            sort: true
+                        }, {
+                            field: 'RackNo',
+                            width: 180,
+                            title: '机架区域编号',
+                            sort: true
+                        }, {
+                            field: 'EditItemQtyFront',
+                            width: '180',
+                            title: '前置物料数量',
+                            sort: true
+                        },
+                        {
+                            field: 'EditItemQtyBack',
+                            width: '180',
+                            title: '后置物料数量',
+                            sort: true
+                        }
+                        , {
+                            title: '操作',
+                            minWidth: 200,
+                            templet: '#currentTableBar',
+                            fixed: "right",
+                            align: "center"
+                        }
+                    ]
+
+                ],
+                // limits: [10, 15, 20, 25, 50, 100],
+                // limit: 15,
+                // page: true
+            });
+
+            // 监听搜索操作
+            // form.on('submit(data-search-btn)', function (data) {
+            //     var result = JSON.stringify(data.field);
+            //     // layer.alert(result, {
+            //     //     title: '最终的搜索信息'
+            //     // });
+
+            //     //执行搜索重载
+            //     table.reload('currentTableId', {
+            //         page: {
+            //             curr: 1
+            //         },
+            //         where: {
+            //             "UserID": data.field.UserID,
+            //             "userName": data.field.userName,
+            //             "permissionID": data.field.permissionID
+            //         }
+            //     }, 'data');
+
+            //     return false;
+            // });
 
 
-            //工件信息
-            $("body").on("click", ".panel-body", function () {
-                var state1 = $(this).children('.panel-title').children("h5").text(),
-                    danhao = $(this).children('.panel-content').children(".no-margins").text();
-                console.log(this)
-                console.log($(this))
-                console.log($(this).children('.panel-title').children("h5").text())
-                console.log($(this).children('.panel-content').children(".no-margins").text())
-                console.log(state1)
-                console.log(danhao)
-                // content1 = $(this).children(h5).html();
+            // 监听搜索操作
+            form.on('submit(data-search-btn)', function (data) {
+                var result = data.field;
+                // layer.alert(result, {
+                //     title: '最终的搜索信息'
+                // });
+                let cans1 = (result.date).split(" ")[0]
+                cans1 = cans1.replace(/^\s*/g, '')
+                let cans2 = (result.date).split(" ")[2]
+                cans2 = cans2.replace(/^\s*/g, '')
+                console.log(result)
+                // http://192.168.0.114:8081/?interface=getGraphicData&StartDay=2021-12-10&
+                // EndDay=2021-12-20&Type=F00RJ02401&Station=OP10
+                // DateFrom日期从2022 - 11 - 01
+                // DateTo日期到2022 - 11 - 12
+                result.DateFrom = cans1
+                result.DateTo = cans2
+                //执行搜索重载
+                table.reload('currentTableId', {
+                    page: {
+                        curr: 1
+                    }
+                    , where: result
+                }, 'data');
+
+                return false;
+            });
+
+
+            //添加
+            form.on('submit(demo1)', function (data) {
+                // layer.alert(JSON.stringify(data.field), {
+                //     title: '最终的提交信息'
+                // })
+                $.ajax({
+                    url: http1 + "/adduserinfo",
+                    type: "post",
+                    // dataType: 'json',
+                    data: JSON.stringify(data.field),
+                    success: function (data) {
+                        if (data.code == "200") {
+                            layer.msg('添加成功！', function () { });
+                            // alert("提交成功：" + data)
+                            layer.closeAll()
+                            table.reload('currentTableId', {
+                                page: {
+                                    curr: 1
+                                },
+                                where: {
+
+                                }
+                            }, 'data');
+                        } else {
+                            layer.msg(data.msg, function () { });
+                        }
+                    },
+                    error: function () {
+
+                        alert("服务器连接失败！")
+
+                    }
+                })
+                return false;
+            });
+
+
+            // 监听添加操作
+
+            $('body').on('click', '.data-add-btn', function () {
+
                 var index = layer.open({
-                    title: state1 + " 绑定表(工序默认为1)",
-                    type: 2,
-                    shade: 0.2,
-                    maxmin: true,
-                    shadeClose: true,
-                    btn: ['确定', '关闭'],
-                    area: ['60%', '82%'],
-                    content: '/page/table/Work_bind.html',
+                    type: 1,
+                    title: "添加用户" //不显示标题栏
+                    ,
+                    // closeBtn: false,
+                    area: '500px;',
+                    shade: 0.8,
+                    id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                    ,
+                    // btn: ['确定', '取消'],
+                    btnAlign: 'c',
+                    moveType: 1 //拖拽模式，0或者1
+                    ,
+                    content: $("#PZM"),
+                    success: function (layero) { },
+                    yes: function (layero, index) {
+
+
+                        // let data1 = {
+                        //     "UserID": $("#UserID").val(),
+                        //     "UserName": $("#UserName").val(),
+                        //     "PowerKey": $("#PowerKey").val(),
+                        //     "PassWord": $("#PassWord").val(),
+                        //     "Department": $("#Department").val(),
+
+                        // }
+
+
+
+                    }
                 });
+
                 $(window).on("resize", function () {
                     layer.full(index);
                 });
 
                 return false;
             });
-            // echarts 窗口缩放自适应
-            window.onresize = function () {
-                echartsRecords.resize();
-            };
-            //工件
-            layer.ready(function () {
-                let html = ""
-                $("#Pallet").html("")
-                for (var i = 1; i <= 20; i++) {
-                    html = `<div class="layui-col-xs3">
-                                                <div class="panel layui-bg-number">
-                                                    <div class="panel-body">
-                                                        <div class="panel-title">
-                                                            <span class="label pull-right layui-bg-gray">空闲</span>
-                                                            <h5>工件名称：${i}</h5>
-                                                        </div>
-                                                        <div class="panel-content">
-                                                            <small>绑定托盘:</small>
-                                                            <h2 class="no-margins">无绑定</h2>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>`
-                    $("#Pallet").append(html);
-                    //把html 添加到父级元素下 
-                    html = ""
+
+
+
+            //编辑
+            form.on('submit(demo2)', function (data) {
+                // layer.alert(JSON.stringify(data.field), {
+                //     title: '最终的提交信息'
+                // })
+
+                $.ajax({
+
+                    url: http1 + "/updateuserinfo",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(data.field),
+                    success: function (data) {
+                        if (data.code == "200") {
+                            layer.msg('修改成功！', function () { });
+                            // alert("提交成功：" + data)
+                            layer.closeAll()
+                            table.reload('currentTableId', {
+                                page: {
+                                    curr: 1
+                                },
+                                where: {
+
+                                }
+                            }, 'data');
+                        } else {
+                            layer.msg(data.msg, function () { });
+                        }
+
+                    },
+
+                    error: function () {
+
+                        alert("服务器连接失败！")
+
+                    }
+
+                })
+
+
+                return false;
+            });
+
+
+            table.on('tool(currentTableFilter)', function (obj) {
+                var data = obj.data;
+                if (obj.event === 'edit') {
+
+
+
+
+
+                    layer.confirm('确认核销' + data.JobID + '任务嘛?', function (index) {
+
+                        console.log(data.UserID)
+                        console.log(index)
+                        let data1 = {
+                            "JobID": data.JobID,
+                            "ConfirmPerson": sessionStorage.getItem("UserID")// 提交人  confirmonejobbyjobid
+                        }
+                        $.ajax({
+                            url: http1 + "/confirmonejobbyjobid",
+                            type: "post",
+                            dataType: 'json',
+                            data: JSON.stringify(data1),
+                            success: function (data) {
+
+
+                                if (data.code == "200") {
+                                    layer.msg('成功！', function () { });
+                                    // alert("提交成功：" + data)
+                                    obj.del();
+                                    layer.close(index);
+                                } else {
+                                    layer.msg(data.msg, function () { });
+                                }
+
+
+                            },
+                            error: function () {
+                                alert("提交失败")
+                            }
+                        })
+                    });
+
+
+                } else if (obj.event === 'delete') {
+
+
+
+                    layer.confirm('确认取消' + data.JobID + '任务嘛?', function (index) {
+
+                        console.log(data.UserID)
+                        console.log(index)
+                        let data1 = {
+                            "JobID": data.JobID,
+                            "ConfirmPerson": sessionStorage.getItem("UserID")// 提交人  confirmonejobbyjobid
+                        }
+                        $.ajax({
+                            url: http1 + "/cancelonejobbyjobid",
+                            type: "post",
+                            dataType: 'json',
+                            data: JSON.stringify(data1),
+                            success: function (data) {
+
+
+                                if (data.code == "200") {
+                                    layer.msg('成功！', function () { });
+                                    // alert("提交成功：" + data)
+                                    obj.del();
+                                    layer.close(index);
+                                } else {
+                                    layer.msg(data.msg, function () { });
+                                }
+
+
+                            },
+                            error: function () {
+                                alert("提交失败")
+                            }
+                        })
+                    });
+
+
                 }
             });
+
         });
     </script>
+    <script>
+    </script>
+
 </body>
 
 </html>
