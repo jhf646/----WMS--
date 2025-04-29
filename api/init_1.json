@@ -48,22 +48,20 @@
               "href": "page/update.html",
               "icon": "fa fa-line-chart",
               "target": "_self"
-            }
-          ]
-        },
-        {
-          "title": "电子看板",
-          "href": "",
-          "icon": "fa fa-database",
-          "target": "_self",
-
-          "child": [
+            },
             {
-              "title": "标签看板",
-              "href": "58_board_20211112/index.html",
-              "icon": "fa fa-line-chart",
-              "target": "_blank"
+              "title": "任务列表",
+              "icon": "fa fa-superpowers",
+              "href": "page/work.html", 
+              "target": "_self"
+            },
+            {
+              "title": "闯入记录查询",
+              "icon": "fa fa-superpowers",
+              "href": "page/BreakIn.html", 
+              "target": "_self"
             }
+      
           ]
         }
       ]

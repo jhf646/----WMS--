@@ -130,8 +130,10 @@
 
             if (qx == "1") {
                 layuimini.init('api/init_2.json');
-            } else {
+            } else if(qx == "2")  {
                 layuimini.init('api/init_1.json');
+            }else if(qx == "3")  {
+                layuimini.init('api/init.json');
             }
             // layuimini.init('api/init_' + qx + '.json');
 

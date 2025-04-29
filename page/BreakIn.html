@@ -32,13 +32,11 @@
                 <div style="margin: 10px 10px 10px 10px">
                     <form class="layui-form layui-form-pane" action="">
                         <div class="layui-form-item">
-                            <!-- "DateFrom": "2025-01-11 09:09:39",
-                            "DateTo": "2025-02-11 09:09:39",
-                            "RackNo": "P1", //区域编号  P1- P3     P4-P5
-                            "RackArea": "OSI", //库区    OIS  和ZH 
-                            "JobType": "成套取料", //任务类型  成套取料/补料  单件取料/补料 单件盘点
-                            "ItemNo": "66880002",
-                            "JobStatus": "已经核销" // 已经取消   等待核销  已经核销 -->
+                            <!-- "DateFrom": "2025-01-11 09:09:39", // 
+                            "DateTo": "2026-04-11 09:09:39", //
+                            "EntryType": "非法闯入", //事件类型  非法闯入 验证失败 正常进入
+                            "EntryLogID": "", // 事件编号
+                            "UserID": "" // 用户ID -->
                             <div class="layui-inline">
                                 <label class="layui-form-label">日期选择</label>
 
@@ -48,56 +46,29 @@
                                 </div>
                             </div>
                             <div class="layui-inline">
-                                <label class="layui-form-label">区域编号</label>
+                                <label class="layui-form-label">事件类型</label>
                                 <div class="layui-input-inline">
                                     <select name="RackNo">
                                         <option value="" selected="">全选</option>
-                                        <option value="P1">P1</option>
-                                        <option value="P2">P2</option>
-                                        <option value="P3">P3</option>
-                                        <option value="P4">P4</option>
-                                        <option value="P5">P5</option>
+                                        <option value="非法闯入">非法闯入</option>
+                                        <option value="验证失败">验证失败</option>
+                                        <option value="正常进入">正常进入</option>
+
                                     </select>
                                 </div>
                             </div>
                             <div class="layui-inline">
-                                <label class="layui-form-label">库区</label>
+                                <label class="layui-form-label">事件编号</label>
                                 <div class="layui-input-inline">
-                                    <select name="RackArea">
-                                        <!-- <option value="" selected="">全选</option> -->
-                                        <option value="OIS" selected="">OIS</option>
-                                        <option value="ZH">ZH</option>
-                                    </select>
+                                    <input type="text" name="EntryLogID" autocomplete="off" class="layui-input"
+                                        placeholder="事件编号">
                                 </div>
                             </div>
                             <div class="layui-inline">
-                                <label class="layui-form-label">任务类型</label>
+                                <label class="layui-form-label">用户ID</label>
                                 <div class="layui-input-inline">
-                                    <select name="JobType">
-                                        <option value="" selected="">全选</option>
-                                        <option value="成套取料">成套取料</option>
-                                        <option value="成套补料">成套补料</option>
-                                        <option value="单件取料">单件取料</option>
-                                        <option value="单件补料">单件补料</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="layui-inline">
-                                <label class="layui-form-label">物料编号</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="ItemNo" autocomplete="off" class="layui-input"
-                                        placeholder="物料编号">
-                                </div>
-                            </div>
-                            <div class="layui-inline">
-                                <label class="layui-form-label">任务状态</label>
-                                <div class="layui-input-inline">
-                                    <select name="JobStatus">
-                                        <option value="" selected="">全选</option>
-                                        <option value="已经取消">已经取消</option>
-                                        <option value="等待核销">等待核销</option>
-                                        <option value="已经核销">已经核销</option>
-                                    </select>
+                                    <input type="text" name="UserID" autocomplete="off" class="layui-input"
+                                        placeholder="用户ID">
                                 </div>
                             </div>
                             <div class="layui-inline">
@@ -114,10 +85,8 @@
             <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
 
             <script type="text/html" id="currentTableBar">
-                <a class="layui-btn layui-btn-xs data-count-delete" lay-event="dwm">测试下载</a>
-                <a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">核销事务</a>
-                <a class="layui-btn layui-btn-xs data-count-delete" lay-event="delete">取消事务</a>
-              
+                <a class="layui-btn layui-btn-xs data-count-delete" lay-event="imgdwm">图片下载</a>          
+                <a class="layui-btn layui-btn-xs data-count-delete" lay-event="videodwm">视频下载</a>
             </script>
 
         </div>
@@ -201,7 +170,7 @@
                 contentType: 'application/json,charset=utf-8',
                 // url: '../api/table.json',
                 where: {},
-                url: http1 + "/queryjobinfolist",
+                url: http1 + "/queryentryinfolist",
                 parseData: function (res) { //res 即为原始返回的数据
                     return {
                         "code": 0,
@@ -218,147 +187,50 @@
 
                 cols: [
 
-                    // {
-                    //     "JobID": "S1000000454",
-                    //     "JobType": "成套取料",
-                    //     "JobStatus": "已经取消",
-                    //     "SubmitPersonName": null,
-                    //     "SubmitPerson": "P0001",
-                    //     "SubmitDate": "2025-02-11 09:09:39",
-                    //     "RackID": "99L01-01-01",
-                    //     "RackArea": "OSI",
-                    //     "EditItemQty": 3,
-                    //     "ItemNo": "66880001",
-                    //     "ItemName": "0",
-                    //     "BomNo": "F100001",
-                    //     "ConfirmPersonName": null,
-                    //     "ConfirmPerson": null,
-                    //     "ConfirmDate": "2025-02-11 09:21:55",
-                    //     "BomJobID": "BJ0010000091",
-                    //     "IsUpload": "FALSE",
-                    //     "RealItemQty": 3,
-                    //     "EditSetQty": 0,
-                    //     "RackNo": "P1",
-                    //     "EditItemQtyFront": 0,
-                    //     "EditItemQtyBack": 0
-                    // },
-
                     [
                         {
-                            field: 'JobID',
+                            field: 'EntryLogID',
                             width: 180,
-                            title: '任务编号',
-                            sort: true
-                        },
-                        {
-                            field: 'JobType',
-                            width: 180,
-                            title: '任务类型',
-                            sort: true
-                        },
-                        {
-                            field: 'JobStatus',
-                            width: 180,
-                            title: '任务状态',
-                            sort: true
-                        }, {
-                            field: 'SubmitPersonName',
-                            width: 180,
-                            title: '提交人姓名',
-                            sort: true
-                        }, {
-                            field: 'SubmitPerson',
-                            width: 180,
-                            title: '提交人编号',
-                            sort: true
-                        }, {
-                            field: 'SubmitDate',
-                            width: 180,
-                            title: '提交时间',
-                            sort: true
-                        }, {
-                            field: 'RackID',
-                            width: 180,
-                            title: '货架编号',
-                            sort: true
-                        }, {
-                            field: 'RackArea',
-                            width: 180,
-                            title: '货架区域',
-                            sort: true
-                        }, {
-                            field: 'EditItemQty',
-                            width: 180,
-                            title: '编辑物料数量',
-                            sort: true
-                        }, {
-                            field: 'ItemNo',
-                            width: 180,
-                            title: '物料编号',
-                            sort: true
-                        }, {
-                            field: 'ItemName',
-                            width: 180,
-                            title: '物料名称',
-                            sort: true
-                        }, {
-                            field: 'BomNo',
-                            width: 180,
-                            title: 'BOM编号',
-                            sort: true
-                        }, {
-                            field: 'ConfirmPersonName',
-                            width: 180,
-                            title: '确认人姓名',
-                            sort: true
-                        }, {
-                            field: 'ConfirmPerson',
-                            width: 180,
-                            title: '确认人编号',
-                            sort: true
-                        }, {
-                            field: 'ConfirmDate',
-                            width: 180,
-                            title: '确认时间',
-                            sort: true
-                        }, {
-                            field: 'BomJobID',
-                            width: 180,
-                            title: 'BOM任务编号',
-                            sort: true
-                        }, {
-                            field: 'IsUpload',
-                            width: 180,
-                            title: '是否上传',
-                            sort: true
-                        }, {
-                            field: 'RealItemQty',
-                            width: 180,
-                            title: '实际物料数量',
-                            sort: true
-                        }, {
-                            field: 'EditSetQty',
-                            width: 180,
-                            title: '编辑成套数量',
-                            sort: true
-                        }, {
-                            field: 'RackNo',
-                            width: 180,
-                            title: '机架区域编号',
-                            sort: true
-                        }, {
-                            field: 'EditItemQtyFront',
-                            width: '180',
-                            title: '前置物料数量',
-                            sort: true
-                        },
-                        {
-                            field: 'EditItemQtyBack',
-                            width: '180',
-                            title: '后置物料数量',
+                            title: '事件编号',
                             sort: true
                         }
                         , {
+                            field: 'EntryType',
+                            width: 180,
+                            title: '事件类型'
+                        }, {
+                            field: 'UserID',
+                            width: 180,
+                            title: '用户ID'
+                        }, {
+                            field: 'UserType',
+                            width: 180,
+                            title: '用户类型'
+                        }, {
+                            field: 'UserName',
+                            width: 180,
+                            title: '用户名'
+                        }, {
+                            field: 'IDCard',
+                            width: 180,
+                            title: '身份证号'
+                        }, {
+                            field: 'Remark',
+                            width: 180,
+                            title: '备注信息'
+                        }, {
+                            field: 'EntryDoor',
+                            width: 180,
+                            title: '事件门点'
+                        }, {
+                            field: 'EntryDate',
+                            width: 180,
+                            title: '事件时间'
+                        }, {
+                            field: 'ImageData',
+                            width: 180,
+                            title: '图片信息'
+                        }, {
                             title: '操作',
                             minWidth: 200,
                             templet: '#currentTableBar',
@@ -366,7 +238,6 @@
                             align: "center"
                         }
                     ]
-
                 ],
                 // limits: [10, 15, 20, 25, 50, 100],
                 // limit: 15,
@@ -556,88 +427,71 @@
 
             table.on('tool(currentTableFilter)', function (obj) {
                 var data = obj.data;
-                if (obj.event === 'edit') {
-
-
-
-
-
-                    layer.confirm('确认核销' + data.JobID + '任务嘛?', function (index) {
-
-                        console.log(data.UserID)
-                        console.log(index)
-                        let data1 = {
-                            "JobID": data.JobID,
-                            "ConfirmPerson": sessionStorage.getItem("UserID")// 提交人  confirmonejobbyjobid
-                        }
-                        $.ajax({
-                            url: http1 + "/confirmonejobbyjobid",
-                            type: "post",
-                            dataType: 'json',
-                            data: JSON.stringify(data1),
-                            success: function (data) {
-
-
-                                if (data.code == "200") {
-                                    layer.msg('成功！', function () { });
-                                    // alert("提交成功：" + data)
-                                    obj.del();
-                                    layer.close(index);
-                                } else {
-                                    layer.msg(data.msg, function () { });
-                                }
-
-
-                            },
-                            error: function () {
-                                alert("提交失败")
-                            }
-                        })
-                    });
-
-
-                } else if (obj.event === 'delete') {
-
-
-
-                    layer.confirm('确认取消' + data.JobID + '任务嘛?', function (index) {
-
-                        console.log(data.UserID)
-                        console.log(index)
-                        let data1 = {
-                            "JobID": data.JobID,
-                            "ConfirmPerson": sessionStorage.getItem("UserID")// 提交人  confirmonejobbyjobid
-                        }
-                        $.ajax({
-                            url: http1 + "/cancelonejobbyjobid",
-                            type: "post",
-                            dataType: 'json',
-                            data: JSON.stringify(data1),
-                            success: function (data) {
-
-
-                                if (data.code == "200") {
-                                    layer.msg('成功！', function () { });
-                                    // alert("提交成功：" + data)
-                                    obj.del();
-                                    layer.close(index);
-                                } else {
-                                    layer.msg(data.msg, function () { });
-                                }
-
-
-                            },
-                            error: function () {
-                                alert("提交失败")
-                            }
-                        })
-                    });
-
-
-                } else if (obj.event === 'dwm') {
+                if (obj.event === 'imgdwm') {
 
                     let data1 = {
-                        ImageData: "E0000000432.mp4"
+                        ImageData: data.EntryLogID + ".jpg"
+                    }
+
+
+                    let filetype = (data1.ImageData).split(".")[1]
+                    let filename = (data1.ImageData).split(".")[0]
+                    console.log(filetype)
+
+
+
+                    var that = this;
+                    // that.loading = true;   //使用v-loading加载
+                    var url = http1 + "/getfile"; // url为请求接口连接
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('post', url, true);
+                    xhr.responseType = "blob";    // 返回类型blob
+                    // 定义请求完成的处理函数
+                    xhr.onload = function () {
+                        // 请求完成
+                        if (this.status === 200) {
+                            // 返回200
+                            var blob = this.response;
+                            var reader = new FileReader();
+                            reader.readAsDataURL(blob);    // 转换为base64，可以直接放入标签href
+                            reader.onload = function (e) {
+                                // 创建一个a标签用于下载
+                                var a = document.createElement('a');
+                                a.download = filename + '.' + filetype;  //定义文件名称和文件类型
+                                a.href = e.target.result;
+                                $("body").append(a);
+                                a.click();
+                                $(a).remove();
+                                // that.loading = false;   //下载完成，将loading加载关闭
+                            }
+                        }
+
+                        // if (this.status === 200) {
+                        //     // 返回200
+                        //     var blob = this.response;
+                        //     var reader = new FileReader();
+                        //     reader.readAsDataURL(blob);    // 转换为base64，可以直接放入标签href
+                        //     reader.onload = function (e) {
+                        //         var img = document.createElement('img');
+                        //         img.src = e.target.result; // 设置img标签的src属性为base64编码的图片数据
+                        //         img.style.maxWidth = '100%'; // 可选：设置图片最大宽度，避免图片过大
+                        //         img.style.height = 'auto'; // 可选：保持图片宽高比
+
+                        //         // 将img标签添加到body或某个特定的容器中
+                        //         document.body.appendChild(img);
+                        //     }
+                        // }
+                    }
+                    // 发送ajax请求
+                    xhr.send(JSON.stringify(data1));
+
+
+
+
+                } else if (obj.event === 'videodwm') {
+
+                    let data1 = {
+                        ImageData: data.EntryLogID + ".mp4"
                     }
 
 
@@ -696,6 +550,7 @@
 
 
                 }
+
             });
 
         });

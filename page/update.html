@@ -70,26 +70,24 @@
             style="padding: 22px; line-height: 22px; font-weight: 300;display: none;">
             <div id="CCS1" class="layui-form-item">
 
+<!-- 
+                库位编号.RackID = 不可修改，只读;
+                库位状态.RackStatus = 启用/禁用 必填项;
+                区域编号.RackNo = P1/P2/P3/P4/P5 必填项;
+                库位类型.RackType = L/M/S必填项;
+                库位货架号.ShelfNumber = 手填 必填项;
+                库位区域.RackArea = OIS/ZH必填项;
+                物料号.ItemNo=手填 必填项;
+                物料类型.ItemType = 手填;
+                物料名称.ItemName = 手填;
+                包装数.PackQty = 手填 必填项;
+                安全数量.SafeQty = 手填 必填项; -->
 
 
-                <label class="layui-form-label required" style="text-align: right;">库位号:</label>
+                <label class="layui-form-label required" style="text-align: right;">库位编号:</label>
                 <div class="layui-input-block">
-                    <input id="RackID" type="text" name="RackID" lay-verify="required" lay-reqtext="输入库位号"
-                        placeholder="请输入库位号" class="layui-input">
-                </div>
-
-                <label class="layui-form-label required" style="text-align: right;">区域号:</label>
-                <div class="layui-input-block">
-                    <input id="RackArea" type="text" name="RackArea" lay-verify="required" lay-reqtext="输入区域号"
-                        placeholder="请输入区域号" class="layui-input">
-                </div>
-
-                <label class="layui-form-label required" style="text-align: right;">库位类型:</label>
-                <div class="layui-input-block">
-                    <select id="RackType" name="RackType">
-                        <option value="small">小</option>
-                        <!-- <option value="供应商">供应商</option> -->
-                    </select>
+                    <input id="RackID" type="text" name="RackID" lay-verify="required" lay-reqtext="输入库位编号" readonly="readonly"
+                        placeholder="请输入库位编号" class="layui-input">
                 </div>
                 <label class="layui-form-label required" style="text-align: right;">库位状态:</label>
                 <div class="layui-input-block">
@@ -98,54 +96,63 @@
                         <option value="禁用">禁用</option>
                     </select>
                 </div>
-
-                <label class="layui-form-label required" style="text-align: right;"> 出口地址:</label>
+                <label class="layui-form-label required" style="text-align: right;">区域编号:</label>
                 <div class="layui-input-block">
-                    <input id="AddressOutput" type="text" name="AddressOutput" lay-verify="required"
-                        lay-reqtext="输入出口地址" placeholder="请输入出口地址" class="layui-input">
+                    <select id="RackNo" name="RackNo">
+                        <option value="P1">P1</option>
+                        <option value="P2">P2</option>
+                        <option value="P3">P3</option>
+                        <option value="P4">P4</option>
+                        <option value="P5">P5</option>
+                    </select>
+                </div>
+                <label class="layui-form-label required" style="text-align: right;">库位类型:</label>
+                <div class="layui-input-block">
+                    <select id="RackType" name="RackType">
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                    </select>
+                </div>
+                <label class="layui-form-label required" style="text-align: right;">库位货架号:</label>
+                <div class="layui-input-block">
+                    <input id="ShelfNumber" type="text" name="ShelfNumber" lay-verify="required" lay-reqtext="输入库位货架号"
+                        placeholder="请输入库位货架号" class="layui-input">
+                </div>
+                <label class="layui-form-label required" style="text-align: right;">库位区域:</label>
+                <div class="layui-input-block">
+                    <select id="RackArea" name="RackArea">
+                        <option value="OIS">OIS</option>
+                        <option value="ZH">ZH</option>
+                    </select>
                 </div>
 
-                <label class="layui-form-label required" style="text-align: right;">入口地址:</label>
-                <div class="layui-input-block">
-                    <input id="AddressInput" type="text" name="AddressInput" lay-verify="required" value=""
-                        lay-reqtext="输入入口地址" placeholder="请输入入口地址" class="layui-input">
-                    <!-- <input id="PassWord" type="text" name="PassWord" lay-verify="required" readonly="readonly" value="123456" lay-reqtext="输入用户名" placeholder="请输入用户名" class="layui-input"> -->
-                </div>
                 <label class="layui-form-label required" style="text-align: right;">物料号:</label>
                 <div class="layui-input-block">
                     <input id="ItemNo" type="text" name="ItemNo" lay-verify="required" value="" lay-reqtext="输入物料号"
                         placeholder="请输入物料号" class="layui-input">
-                    <!-- <input id="PassWord" type="text" name="PassWord" lay-verify="required" readonly="readonly" value="123456" lay-reqtext="输入用户名" placeholder="请输入用户名" class="layui-input"> -->
                 </div>
-
-                <label class="layui-form-label required" style="text-align: right;">物料名称:</label>
+  
+                <label class="layui-form-label " style="text-align: right;">物料类型:</label>
                 <div class="layui-input-block">
-                    <input id="ItemName" type="text" name="ItemName" lay-verify="required" value="" lay-reqtext="输入物料名称"
+                    <input id="ItemType" type="text" name="ItemType"  lay-reqtext="输入物料类型"
+                        placeholder="请输入物料类型" class="layui-input">
+                </div>
+              
+                <label class="layui-form-label " style="text-align: right;">物料名称:</label>
+                <div class="layui-input-block">
+                    <input id="ItemName" type="text" name="ItemName"  value="" lay-reqtext="输入物料名称"
                         placeholder="请输入物料名称" class="layui-input">
-                    <!-- <input id="PassWord" type="text" name="PassWord" lay-verify="required" readonly="readonly" value="123456" lay-reqtext="输入用户名" placeholder="请输入用户名" class="layui-input"> -->
+                </div>
+                <label class="layui-form-label required" style="text-align: right;">包装数:</label>
+                <div class="layui-input-block">
+                    <input id="PackQty" type="text" name="PackQty" lay-verify="required" value="" lay-reqtext="输入包装数"
+                        placeholder="请输入包装数" class="layui-input">
                 </div>
                 <label class="layui-form-label required" style="text-align: right;">安全库存:</label>
                 <div class="layui-input-block">
-                    <input id="PackQty" type="text" name="PackQty" lay-verify="required" value="" lay-reqtext="输入安全库存"
-                        placeholder="请输入安全库存" class="layui-input">
-                    <!-- <input id="PassWord" type="text" name="PassWord" lay-verify="required" readonly="readonly" value="123456" lay-reqtext="输入用户名" placeholder="请输入用户名" class="layui-input"> -->
-                </div>
-                <label class="layui-form-label required" style="text-align: right;">库存:</label>
-                <div class="layui-input-block">
-                    <input id="ItemQty" type="text" name="ItemQty" lay-verify="required" value="" lay-reqtext="输入库存"
-                        placeholder="请输入库存" class="layui-input">
-                    <!-- <input id="PassWord" type="text" name="PassWord" lay-verify="required" readonly="readonly" value="123456" lay-reqtext="输入用户名" placeholder="请输入用户名" class="layui-input"> -->
-                </div>
-                <label class="layui-form-label required" style="text-align: right;">最大补料数:</label>
-                <div class="layui-input-block">
-                    <input id="MaxItemQty" type="text" name="MaxItemQty" value="" lay-verify="required"
-                        lay-reqtext="输入最大补料数" placeholder="请输入最大补料数" class="layui-input">
-                </div>
-                <label class="layui-form-label required" style="text-align: right;">入库时间:</label>
-                <div class="layui-input-block">
-                    <input type="text" name="InputDatetime" id="InputDatetime" lay-verify="required"
-                        lay-reqtext="请选择时间,如果操作失误可以关闭弹框,重新编辑！" placeholder="选择生产日期" class="layui-input">
-
+                    <input id="SafeQty" type="text" name="SafeQty" lay-verify="required" value="" lay-reqtext="输入安全库存"
+                        placeholder="请输入安全库存" class="layui-input">   
                 </div>
 
 
