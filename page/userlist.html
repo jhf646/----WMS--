@@ -56,8 +56,10 @@
                                 <div class="layui-input-inline">
                                     <select name="UserType">
                                         <option value="" selected="">全选</option>
-                                        <option value="普通用户">普通用户</option>
-                                        <option value="供应商">供应商</option>
+                                        <option value="外部供应商">外部供应商</option>
+                                        <option value="内部取料员">内部取料员</option>
+                                        <option value="内部补料员">内部补料员</option>
+                                        <option value="内部管理员">内部管理员</option>
                                     </select>
                                 </div>
                             </div>
@@ -109,8 +111,10 @@
             <label class="layui-form-label required" style="text-align: right;">用户类型：</label>
             <div class="layui-input-block">
                 <select id="UserType" name="UserType">
-                    <option value="普通用户">普通用户</option>
-                    <option value="供应商">供应商</option>
+                    <option value="外部供应商">外部供应商</option>
+                    <option value="内部取料员">内部取料员</option>
+                    <option value="内部补料员">内部补料员</option>
+                    <option value="内部管理员">内部管理员</option>
                 </select>
             </div>
             <label class="layui-form-label required" style="text-align: right;">用户名：</label>
@@ -174,8 +178,10 @@
             <label class="layui-form-label required" style="text-align: right;">用户类型：</label>
             <div class="layui-input-block">
                 <select id="UserType1" name="UserType">
-                    <option value="普通用户">普通用户</option>
-                    <option value="供应商">供应商</option>
+                    <option value="外部供应商">外部供应商</option>
+                    <option value="内部取料员">内部取料员</option>
+                    <option value="内部补料员">内部补料员</option>
+                    <option value="内部管理员">内部管理员</option>
                 </select>
             </div>
             <label class="layui-form-label required" style="text-align: right;">用户名：</label>
@@ -630,7 +636,7 @@
                                         layer.msg(data.msg, function () { });
                                     }
 
-                         
+
                                 },
                                 error: function () {
                                     alert("提交失败")
