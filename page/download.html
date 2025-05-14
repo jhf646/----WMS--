@@ -22,9 +22,16 @@
                 <div style="margin: 10px 10px 10px 10px">
                     <form class="layui-form layui-form-pane" action="">
 
-                        <div class="layui-inline">
-                            <button type="submit" class="layui-btn layui-btn-primary" lay-submit
-                                lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">BomNo号</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="BomNo" autocomplete="off" class="layui-input">
+                            </div>
+
+                            <div class="layui-inline">
+                                <button type="submit" class="layui-btn layui-btn-primary" lay-submit
+                                    lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
+                            </div>
                         </div>
 
                     </form>
@@ -41,6 +48,7 @@
                 <!-- <a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
                 <a class="layui-btn layui-btn-xs data-count-edit" lay-event="gantt">甘特图</a> -->
             <a class="layui-btn layui-btn-sm  fa-download" lay-event="download">下载BOM表</a>
+            <a class="layui-btn layui-btn-sm layui-btn-danger data-count-delete" lay-event="delete">删除</a>
             </script>
 
 
@@ -126,7 +134,22 @@
                 // page: true
             });
 
+            form.on('submit(data-search-btn)', function (data) {
+                var result = JSON.stringify(data.field);
+                // layer.alert(result, {
+                //     title: '最终的搜索信息'
+                // });
 
+                //执行搜索重载
+                table.reload('currentTableId', {
+                    page: {
+                        curr: 1
+                    },
+                    where: data.field
+                }, 'data');
+
+                return false;
+            });
 
             //监听表格复选框选择
 
@@ -141,8 +164,8 @@
                         console.log(data)
 
 
-                        data1={
-                            BomNo:data.BomNo,
+                        data1 = {
+                            BomNo: data.BomNo,
                         }
 
                         $.ajax({
@@ -161,18 +184,18 @@
                                 // {"Mid_Value":0,"Max_Value":500,"Min_Value":500,"s_DateTime":"2021-12-13"}
                                 for (var i = 0; i < res.data.length; i++) {
                                     BomNo = res.data[i].BomNo
-                    //                 html1 += `<tr>
-                    //     <td>${res.data[i].ItemNo}</td>
-                    //     <td>${res.data[i].ItemBomQty}</td>
-                    //     <td>${res.data[i].Remark}</td>
-                    //     <td>${res.data[i].BomNo}</td>
-                    // </tr>`
+                                    //                 html1 += `<tr>
+                                    //     <td>${res.data[i].ItemNo}</td>
+                                    //     <td>${res.data[i].ItemBomQty}</td>
+                                    //     <td>${res.data[i].Remark}</td>
+                                    //     <td>${res.data[i].BomNo}</td>
+                                    // </tr>`
                                 }
                                 console.log(html1)
                                 // $("#SJ").html("")
                                 // $("#SJ").html(html1)
                                 // Expor(BomNo)
-                                json2Excel(res.data,BomNo)
+                                json2Excel(res.data, BomNo)
 
                                 obj.del();
                                 layer.close(index);
@@ -192,12 +215,50 @@
 
 
                     });
+                } else if (obj.event === 'delete') {
+
+
+
+                    layer.confirm('是否删除' + data.BomNo + 'BOM表?', function (index) {
+
+                        console.log(data.UserID)
+                        console.log(index)
+                        let data1 = {
+                            BomNo: data.BomNo,
+                        }
+                        $.ajax({
+                            url: http1 + "/deletebominfoall",
+                            type: "post",
+                            dataType: 'json',
+                            data: JSON.stringify(data1),
+                            success: function (data) {
+
+
+                                if (data.code == "200") {
+                                    layer.msg('删除成功！', function () { });
+                                    // alert("提交成功：" + data)
+                                    obj.del();
+                                    layer.close(index);
+                                } else {
+                                    layer.msg(data.msg, function () { });
+                                }
+
+
+                            },
+                            error: function () {
+                                alert("提交失败")
+                            }
+                        })
+                    });
+
+
+
                 }
             });
 
             //导出函数
 
-            function json2Excel(dataSource,BomNo) {
+            function json2Excel(dataSource, BomNo) {
                 var wopts = {
                     bookType: 'xlsx',
                     bookSST: false,
@@ -214,7 +275,7 @@
 
                 //3、XLSX.write() 开始编写Excel表格
                 //4、changeData() 将数据处理成需要输出的格式
-                saveAs(new Blob([changeData(XLSX.write(workBook, wopts))], { type: 'application/octet-stream' }),BomNo)
+                saveAs(new Blob([changeData(XLSX.write(workBook, wopts))], { type: 'application/octet-stream' }), BomNo)
             }
             function changeData(s) {
                 //如果存在ArrayBuffer对象(es6) 最好采用该对象
