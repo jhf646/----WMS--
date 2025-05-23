@@ -103,6 +103,8 @@
                             <div class="layui-inline">
                                 <button type="submit" class="layui-btn layui-btn-primary" lay-submit
                                     lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
+                                <button type="submit" class="layui-btn layui-bg-red" lay-submit
+                                    lay-filter="data-update">批量取消</button>
                             </div>
                         </div>
                     </form>
@@ -115,9 +117,9 @@
 
             <script type="text/html" id="currentTableBar">
                 <!-- <a class="layui-btn layui-btn-xs data-count-delete" lay-event="dwm">测试下载</a> -->
-                <a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">核销事务</a>
-                <a class="layui-btn layui-btn-xs data-count-delete" lay-event="delete">取消事务</a>
-              
+            <a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">核销事务</a>
+            <a class="layui-btn layui-btn-xs data-count-delete" lay-event="delete">取消事务</a>
+
             </script>
 
         </div>
@@ -373,27 +375,42 @@
                 // page: true
             });
 
-            // 监听搜索操作
-            // form.on('submit(data-search-btn)', function (data) {
-            //     var result = JSON.stringify(data.field);
-            //     // layer.alert(result, {
-            //     //     title: '最终的搜索信息'
-            //     // });
+            // 批量取消任务
+            form.on('submit(data-update)', function (data) {
 
-            //     //执行搜索重载
-            //     table.reload('currentTableId', {
-            //         page: {
-            //             curr: 1
-            //         },
-            //         where: {
-            //             "UserID": data.field.UserID,
-            //             "userName": data.field.userName,
-            //             "permissionID": data.field.permissionID
-            //         }
-            //     }, 'data');
 
-            //     return false;
-            // });
+
+                var result = data.field;
+                const data1 = {
+                    "JobType": result.JobType,
+                    "RackNo": result.RackNo,
+                    "ConfirmPerson": sessionStorage.getItem("UserID"),
+                };
+
+                $.ajax({
+                    url: http1 + "/cancelbomjob",
+                    type: "post",
+                    dataType: 'json',
+                    data: JSON.stringify(data1),
+                    success: function (response) {
+                        if (response.code == "200") {
+                            layer.msg('取消成功！', function () { });
+                        } else {
+                            layer.msg(response.msg, function () { });
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("AJAX请求失败:", status, error);
+                        layer.msg('提交失败，请稍后再试！', function () { });
+                    },
+                    complete: function () {
+                        // 隐藏加载指示器
+                        $('#loading').hide();
+                    }
+                });
+
+                return false;
+            });
 
 
             // 监听搜索操作
