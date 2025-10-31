@@ -105,6 +105,8 @@
                                     lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
                                 <button type="submit" class="layui-btn layui-bg-red" lay-submit
                                     lay-filter="data-update">批量取消</button>
+                                         <button type="submit" class="layui-btn layui-bg-red" lay-submit
+                                    lay-filter="data-update_A">一键重发亮灯任务</button>
                             </div>
                         </div>
                     </form>
@@ -377,9 +379,6 @@
 
             // 批量取消任务
             form.on('submit(data-update)', function (data) {
-
-
-
                 var result = data.field;
                 const data1 = {
                     "JobType": result.JobType,
@@ -412,6 +411,39 @@
                 return false;
             });
 
+             // 一键重发亮灯任务
+            form.on('submit(data-update_A)', function (data) {
+                var result = data.field;
+                // const data1 = {
+                //     "JobType": result.JobType,
+                //     "RackNo": result.RackNo,
+                //     "ConfirmPerson": sessionStorage.getItem("UserID"),
+                // };
+
+                $.ajax({
+                    url: http1 + "/resendlamp",
+                    type: "post",
+                    // dataType: 'json',
+                    // data: JSON.stringify(data1),
+                    success: function (response) {
+                        if (response.code == "200") {
+                            layer.msg('重发成功！', function () { });
+                        } else {
+                            layer.msg(response.msg, function () { });
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("AJAX请求失败:", status, error);
+                        layer.msg('提交失败，请稍后再试！', function () { });
+                    },
+                    complete: function () {
+                        // 隐藏加载指示器
+                        $('#loading').hide();
+                    }
+                });
+
+                return false;
+            });
 
             // 监听搜索操作
             form.on('submit(data-search-btn)', function (data) {
