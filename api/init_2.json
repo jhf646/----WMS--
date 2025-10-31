@@ -52,16 +52,15 @@
             {
               "title": "任务列表",
               "icon": "fa fa-superpowers",
-              "href": "page/work.html", 
+              "href": "page/work.html",
               "target": "_self"
             },
             {
               "title": "闯入记录查询",
               "icon": "fa fa-superpowers",
-              "href": "page/BreakIn.html", 
+              "href": "page/BreakIn.html",
               "target": "_self"
             }
-      
           ]
         },
         {
@@ -69,7 +68,6 @@
           "href": "",
           "icon": "fa fa-database",
           "target": "_self",
-
           "child": [
             {
               "title": "标签看板",
@@ -81,7 +79,6 @@
         }
       ]
     },
-
     "other": {
       "title": "权限管理",
       "icon": "fa fa-slideshare",
@@ -90,6 +87,12 @@
           "title": "用户列表",
           "href": "page/userlist.html",
           "icon": "fa fa-superpowers",
+          "target": "_self"
+        },
+        {
+          "title": "系统参数",
+          "href": "page/setting.html",
+          "icon": "fa fa-cogs",
           "target": "_self"
         }
       ]
